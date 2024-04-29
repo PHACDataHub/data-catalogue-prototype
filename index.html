@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHAC Data Catalogue Viewer Prototype</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Icons Font Awesome (to access icons, import Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous">
+
+    <!-- GC Design System -->
+    <link rel="stylesheet"
+        href="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.css">
+    <script type="module"
+        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.esm.js"></script>
+    <script nomodule
+        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.js"></script>
+
+    <!-- dataTables stuff -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Web component code (Angular, Vue) -->
+    <gcds-header lang-href="#" skip-to-href="#">
+    </gcds-header>
+
+
+
+    <main id="mc" class="container-xl mx-auto xl:px-0 sm:px-500 px-300 general-layout">
+        <h1 id="catalogue-title" class="mb-400">Data Catalogue for the Public Health Agency of Canada</h1>
+        <h2 id="explore-the-phac-data-catalogue" class="mt-500 mb-400">Explore the PHAC Data Catalogue</h2>
+
+        <p class="mb-400">The PHAC Data Catalogue is a powerful tool to learn what data PHAC holds. It's a great way to understand the information we have and how to use it.</p>
+
+
+
+        <table id="catalogueTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Dataset</th>
+                    <th>Acronym</th>
+                    <th>Description</th>
+                    <th>Keywords</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </main>
+
+<script>
+
+const data = [
+  {
+    "Database/Dataset/System Name (English)": "Canadian COVID-19 Vaccination Coverage Surveillance System",
+    "Acronym (English)": "CCVCSS",
+    "Description (English)": "CCVCCS reports on COVID-19 vaccination coverage rates in Canada, which first began in December 2020. The objectives of CCVCCS are to measure and monitor the number of COVID-19 doses administered as well as vaccination coverage in Canada, by age group and geography. Data for CCVCSS are collected every four weeks, and a regular report is produced on this same cycle for the Canadian Immunization Committee (CIC) and online publication. In addition, CCVCSS provides denominator tables to CAEFISS (see above) for the calculation of rates of AEFI associated with COVID-19 vaccines. Data sources include provincial and territorial immunization registries as well as other Government of Canada departments. Data are available since 2020.",
+    "Keywords": "Covid-19, Doses Administered, Vaccination"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Monkeypox Vaccination Monitoring System",
+    "Acronym (English)": "CMVMS",
+    "Description (English)": "The purpose of CMVMS is to monitor the number of people vaccinated with a vaccine against monkeypox in response to the recent monkeypox outbreaks across Canada in order to estimate adverse events following immunization (AEFIs), inform vaccination program delivery and public health recommendations, and meet stakeholder information needs. Currently, data are received either weekly or every four weeks, depending on PT vaccination campaigns.",
+    "Keywords": "Monkeypox, Vaccination"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Adverse Events Following Immunization Surveillance System",
+    "Acronym (English)": "CAEFISS",
+    "Description (English)": "CAEFISS is an event-based surveillance system for vaccine safety, which reports on data received from health providers (to federal, provincial and territorial immunization programs) to facilitate coordinated and centralized monitoring of adverse events that occur after the administration of vaccines in Canada. The goal of CAEFISS is to continuously monitor the safety of marketed vaccines in Canada. To do this, CAEFISS identifies increases in the frequency or severity of previously identified vaccine-related reactions and identifies previously unknown adverse events following immunization (AEFIs) that could possibly be related to vaccines. The data can be used to identify areas that require further investigation and/or research and provides timely information on AEFI for vaccines marketed in Canada, to  that can help inform immunization-related decisions, including regulatory action and vaccination guidance via NACI. Data are available since 1987.",
+    "Keywords": "Vaccination"
+  },
+  {
+    "Database/Dataset/System Name (English)": "COVID-19 and Vaccine Coverage in Black Communities",
+    "Acronym (English)": "CVCB",
+    "Description (English)": "The COVID-19 Vaccine Coverage in Black communities project is deployed by PHAC in partnership with the Interdisciplinary Center for Black Health [ICBH] to address data gaps related to COVID-19 vaccine coverage and barriers to vaccination against COVID-19 in Black communities through a quantitative and qualitative studies.",
+    "Keywords": "Covid-19, Vaccination, Black Communities, Immunization"
+  },
+  {
+    "Database/Dataset/System Name (English)": "COVID-19 Surveillance in Red River M�tis",
+    "Acronym (English)": "CSRRM",
+    "Description (English)": "MMF will conduct a cohort-based surveillance initiative that will provide both broad epidemiological and survey information on COVID to understand the current experience and inform future pandemic planning. This project will examine validated infection indicators. These will include age- and sex-standardized rates of COVID-19, which will be further sub-analyzed based on co-morbidity status, mental illness, physician services, use of hospital services, use of home care and personal care homes, prescription use, quality of primary care and rates and types of �long-haul� COVID-19.  Age and sex-adjusted data will be examined at the provincial level, RHAs, and Winnipeg Community Areas, while comorbidity analysis and logistic regression will be done in M�tis and all other Manitobans.                                                                                                                                                                                                                                                       Through pre-existing data sharing agreements with Manitoba Health Centre Policy (MCHP), data sources will include hospital discharge abstract files, physician data, medical claims, prescription drug use files, home care data, long-term care data, vital statistics files and population registry.",
+    "Keywords": "Covid-19, Vaccination, Red River M�tis"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced surveillance of infectious and congenital syphilis through the Syphilis Outbreak Investigation Coordinating Committee (SOICC)",
+    "Acronym (English)": "SOICC",
+    "Description (English)": "The enhanced surveillance of infectious and congenital syphilis through the Syphilis Outbreak Investigation Coordinating Committee (SOICC) collects data on infectious and congenital syphilis in Canada. The Centre for Communicable Diseases and Infection Control (CCDIC) performs the analysis. The system reports case counts and rates of infectious syphilis by age, sex, and province/ territory as well as by male sexual behaviour and pregnancy status. It also reports national case counts and rates of congenital syphilis.",
+    "Keywords": "Sexually Transmitted Infections, STBBI, Infectious Syphilis, STI, Congenital Syphilis"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Cancer Registry / International Agency for Research on Cancer",
+    "Acronym (English)": "CCR & IARC",
+    "Description (English)": "The CCR is a dynamic database of all primary cancer cases diagnosed among Canadian residents since 1992. The data submitted by the PTCRs to Statistics Canada describe both the individual with the cancer, and the characteristics of the cancer. Being a person-based system, the CCR contains information about the type and number of primary cancers diagnosed for each person. A person-oriented database has the advantage of being able to provide longitudinal data for each cancer patient such that a single person record exists for all tumors diagnosed during that person's lifetime.",
+    "Keywords": "Cancer, Adult Cancer"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Public Health Intelligence Assessment Team",
+    "Acronym (English)": "PHIA",
+    "Description (English)": "PHIA uses classified systems to collect intelligence regarding threats to Canadians health and healthcare, as requested by PHAC Sr. Management and program areas.",
+    "Keywords": "Classified, All-Source, Intelligence, Security, National Security, Health Security"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey on Living with Neurological Conditions in Canada",
+    "Acronym (English)": "SLNCC",
+    "Description (English)": "The survey on Living with Neurological Conditions in Canada (SLNCC) is inactive but data still available to use. The SLNCC collected new information about Canadian's experiences with choronic neurological conditions. The survey reported on various factors that impact on health for individuals living with these conditions, their families and caregivers and to fill gaps. Researchers will be able to use the data to monitor, analyze, measure and report on factors affecting those living with chronic neurological conditions. \n\nReference period: Varies according to the question \n\nSubjects\n- Diseases and health conditions\n- Health",
+    "Keywords": "Neurological Conditions"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey on Neurological Conditions in Institutions in Canada",
+    "Acronym (English)": "SNCIC",
+    "Description (English)": "The SNCIC is the first ever national survey that collects data on the number of persons living in long-term care facilities who have been diagnosed with selected neurological conditions. The questionnaire also asks about the number of persons with at least one of the conditions. The data are gathered by age group and sex of residents in long-term care facilities. \n\nSubjects\n   - Diseases and health conditions \n   - Health",
+    "Keywords": "Neurological Conditions"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Transition Home Survey",
+    "Acronym (English)": "THS",
+    "Description (English)": "The THS collects data on residential services for abused women and their children during the previous 12 months, as well as to provide a one-day snapshot of the clientele being served on a specific date. The THS is a census of all residential agencies providing services to abused women and their children across Canada. \n\nCollection period: April through August of the survey year\n\nSubjects\n- Crime and justice\n- Family violence \n- Victims and victimization",
+    "Keywords": "Home Transition"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Health Survey",
+    "Acronym (English)": "",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Disease and Therapeutic Index",
+    "Acronym (English)": "CDTI",
+    "Description (English)": "Canadian Disease and Therapeutic Index (CDTI) objective is to understand disease trends and drug prescribing patterns. It contains quarterly information on diagnosis and treatment patterns of disease encountered in office-based physicians which means that CDTI focuses on information related to the diagnosis trends, treatment patterns and patient demographics. Data for CDTI are collected from a sample of physicians representing all major specialties across Canada. \n - Samples of 652 physicians representing all major specialties with the total of 51,200 specialties across Canada. The target population is made up of close to 63,000 physicians in private practice across Canada.",
+    "Keywords": "Pharmaceutical Data"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Physical Activity Monitor",
+    "Acronym (English)": "PAM",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Physical Activity Levels Among Youth",
+    "Acronym (English)": "CANPLAY",
+    "Description (English)": "The 2013-2014 Canadian Physical Activity Levels Among Youth (CANPLAY) study collected pedometer data on the number of steps taken daily by children and youth aged 5 to 17 years, as well as parental reports of factors influencing participation. The CANPLAY data represent a measure of overall total physical activity and do not restrict to measures of single-domain activity (such as only leisure time physical activity). The project was funded by the Public Health Agency of Canada and the provincial and territorial government departments concerned with fitness, active living, leisure, sport, and recreation through the Interprovincial Sport and Recreation Council",
+    "Keywords": "Physical Activity, Children and Youth"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey of COVID-19 and Mental Health",
+    "Acronym (English)": "SCMH",
+    "Description (English)": "Information was gathered on the pandemic's effects on mental health and coping skills. Topics covered by the survey include: behaviours and symptoms associated with depression, anxiety and post-traumatic stress disorder (PTSD), suicide risk, pressure on parents, substance use, household and intimate partner violence, as well as general mental health.",
+    "Keywords": "Covid-19, Mental Health and Well-Being, Coping Skills, Lifestyle, Crime and Justice, Health, Mental Health, Family Violence"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey on Access to Health Care and Pharmaceuticals During the Pandemic",
+    "Acronym (English)": "SAHCPDP",
+    "Description (English)": "The survey covers topics such as access to pharmaceuticals, impacts of delayed health care, barriers to receiving health care and general health status.",
+    "Keywords": "Covid-19, Pharmaceutical Drugs, Pharmaceutical Data, Health Care, Access to Health Care"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Community Health Survey Rapid Response - Traumatic Brain Injury",
+    "Acronym (English)": "CCHS-TBI",
+    "Description (English)": "The Traumatic Brain Injury (TBI) module collects information about concussions diagnosed by a medical doctor, nurse practitioner, or identified by a professional, as well as suspected or self-diagnosed concussions.",
+    "Keywords": "Brain Injury, Concussion"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Community Health Survey - Rapid Response - Discrimination",
+    "Acronym (English)": "CCHS-RR-DISCRIM",
+    "Description (English)": "This module is a revised version of the Everyday Discrimination Scale developed by Dr. David R. Williams in 1997.  It asks survey respondents about their perception of discrimination in their day-to-day life because of various characteristics such as their race, sex, age, weight, etc.  The module also includes questions about perception of discrimination in their experiences with health care services.",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Community Health Survey - Rapid Response - Positive Mental Health 2019",
+    "Acronym (English)": "CCHS-PMH",
+    "Description (English)": "The PMH module is offered as a rapid response module from January to March 2019. Data is collected from all provinces. Answers to this module are used to determine the positive mental health of the respondent. Higher levels of positive mental health are widely thought to be associated with better overall health.",
+    "Keywords": "Mental Health, Social Connection"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey on Maternal Health",
+    "Acronym (English)": "SMH",
+    "Description (English)": "The SMH survey collected information on health, mental health and well-being, and pregnancy and births of biological mothers who gave birth between January 1 and June 30, 2018 and lived in Canada's ten provinces.",
+    "Keywords": "Postpartum, Pregnancy, Maternal Health"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Fitness and Lifestyle Institute",
+    "Acronym (English)": "CLFRI",
+    "Description (English)": "The purpose of the Canadian Fitness and Lifestyle Institute Physical Activity Monitor was to monitor trends related to activity levels and sport participation, and other correlates. Factors monitored included knowledge about the number of days, time and intensity required to be active for health, beliefs about the health benefits of physical activity, self-efficacy, perceived behavioural control, attitudes, social norms for walking, intention to be active, initial behaviour change for physically active behaviours. Parents were asked about their children�s patterns and preferences for physical activity",
+    "Keywords": "Physical Activity"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Nursing and Residential Care Facility Survey",
+    "Acronym (English)": "NRCFS",
+    "Description (English)": "This survey asks respondents questions about the facility, its revenues and expenses, personnel and hours worked, the types of services offered on-site, the number of beds and number of residents by their age and gender. The questions related to COVID-19 includes: infection prevention and control, changes made to the facility, confirmed number of COVID-19 cases, and the proportion of residents and employees fully vaccinated against the virus.",
+    "Keywords": "Covid-19, COVID-19 Vaccine Coverage, Residential Facilities, Pandemic"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian COVID-19 Antibody and Health Survey",
+    "Acronym (English)": "CCAHS",
+    "Description (English)": "The Canadian COVID-19 Antibody and Health Survey is a survey designed to help evaluate the extent of the health status associated with the COVID-19 pandemic such as active COVID-19 infections and the prevalence of COVID-19 antibodies among a representative sample of Canadians. The survey also provides a platform to explore emerging public health issues, including the impact of COVID-19 on health and social well-being. The CCAHS stores dried blood spot and saliva samples from consenting Canadians aged 18 and older. Additional biospecimens from the Canadian Health Measures Survey (CHMS) are available on the CHMS Biobank page.",
+    "Keywords": "Covid-19, Antibody"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey on Mental Health and Stressful Events",
+    "Acronym (English)": "SMHSE",
+    "Description (English)": "The survey covers mental health status and well-being, post-traumatic stress disorder (PTSD), social support and healthy behaviours, and the access to and use of mental health services.",
+    "Keywords": "Stressful Events, Post-Traumatic Stress Disorder, PTSD, Mental Health Services, Mental Health and Well-Being, Mental Health"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Coroner and Medical Examiner Database",
+    "Acronym (English)": "CCMED",
+    "Description (English)": "The long-term vision of the Canadian Coroner and Medical Examiner Database (CCMED) is to have a national database of standardized information on the circumstances surrounding deaths reported to coroners and medical examiners in Canada. The CCMED is comprised of the Minimum Dataset (MDS) which contains variables concerning the deceased, causes, and circumstances of death and related factors.  Provinces and territories will either map their electronically stored data to the national data requirement to produce an output file or will use the Statistics Canada developed capture tool to capture their cases and produce and output file.",
+    "Keywords": "Death, Mortality"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Discharge Abstract Database",
+    "Acronym (English)": "DAD",
+    "Description (English)": "The Discharge Abstract Database (DAD) is one of the core clinical administrative databases at CIHI. It is a national database for information on all separations from acute care institutions, including discharges, deaths, sign-outs and transfers, within a fiscal year (April 1 to March 31). Over time, the DAD has also been used to capture data on day surgery procedures, long-term care, rehabilitation and other types of care.",
+    "Keywords": "Death, Discharge Data"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Hospital Mental Health Database",
+    "Acronym (English)": "HMHDB",
+    "Description (English)": "The Hospital Mental Health Database (HMHDB) is an annual (fiscal year), pan-Canadian, event-based database that contains information on inpatient discharges for mental illness or addiction from both general and psychiatric hospitals. Statistics based on the HMHDB are available through the Quick Stats reports on CIHI�s website. The current database contains information on admission and discharge dates, as well as diagnosis and demographic information. Since the HMHDB is event-based rather than person-based, a client who had more than one hospital discharge for a mental illness or addiction in the fiscal year will appear in the database multiple times. Some clients who are hospitalized in a given fiscal year are not discharged until a subsequent fiscal year; in these cases, records are included in the database in the year of discharge, not the year of admission to hospital.",
+    "Keywords": "Mental Health, Hospitalization, Mental Illness, Addiction"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Hospital Morbidity Database",
+    "Acronym (English)": "HMDB",
+    "Description (English)": "The Hospital Morbidity Database (HMDB) was launched in 1994�1995. The HMDB is a national data holding that captures administrative, clinical and demographic information on inpatient separations from acute care hospitals. Discharge data is received from acute care facilities across Canada and day surgery facilities in Quebec.",
+    "Keywords": "Morbidity, Acute Care, Surgery, Inpatient"
+  },
+  {
+    "Database/Dataset/System Name (English)": "National Ambulatory Care Reporting System",
+    "Acronym (English)": "NACRS",
+    "Description (English)": "The National Ambulatory Care Reporting System (NACRS) contains data for all hospital-based and community-based ambulatory care: day surgery, outpatient and community-based clinics, and emergency departments. \n\nData elements in NACRS can be grouped according to five categories�demographic, clinical, administrative, and financial and service specific�with information on discharges, deaths and transfers within a fiscal year (April 1 to March 31). \n\nOver time, NACRS has been used to capture not only emergency department (ED) visits but also day surgery (DS) procedures, diagnostic imaging (DI) visits and numerous clinic visits, including renal dialysis (RD), cardiac catheterization (CC), oncology (OC) and mental health (MH) by offering 3 options for submitting emergency department (ED) records; level 1, level 2, and level 3 (day surgery and other ambulatory care visits).",
+    "Keywords": "Emergency Visits"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Health Survey on Seniors",
+    "Acronym (English)": "CHSS",
+    "Description (English)": "The Canadian Health Survey on Seniors (CHSS) is a cross-sectional survey that collected information related to health status, health care services, supports, as well as social and health determinants for the Canadian population aged 65 and over. The survey is a supplement to the Canadian Community Health Survey (CCHS). The CHSS includes 15 minutes of content asked at the end of the CCHS to respondents aged 65 and over. The surveys are designed to flow seamlessly from the CCHS into the CHSS. The CHSS collected responses from persons aged 65 and over living in the ten provinces. Excluded from the survey's coverage are: persons living on reserves and other Aboriginal settlements in the provinces; full-time members of the Canadian Forces; the institutionalized population, and persons living in the Quebec health regions of R�gion du Nunavik and R�gion des Terres-Cries-de-la-Baie-James.",
+    "Keywords": "Senior, Surveillance, Social Determinants of Health, Cross-Sectional, Aging, Mental Health, Nutrition, Falls"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Community Health Survey � Annual",
+    "Acronym (English)": "CCHS",
+    "Description (English)": "The CCHS is a cross-sectional survey that collects information related to health status, health care utilization and health determinants for the Canadian population. The survey is offered in both official languages. It relies upon a large sample of respondents and is designed to provide reliable estimates at the health region level every 2 years.",
+    "Keywords": "Community Health"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Community Health Survey � Healthy Aging (Mental Health)",
+    "Acronym (English)": "CCHSHA",
+    "Description (English)": "The Canadian Community Health Survey - Healthy Aging is part of the Canadian Community Health Survey program, but is a unique survey in that the target population, objectives, and many of the questions differ from those of earlier surveys administered under the umbrella of CCHS.\nThe survey focuses on the health of Canadians aged 45 and over by examining the various factors that impact healthy aging, such as general health and well-being, physical activity, use of health care services, social participation, as well as work and retirement transitions.",
+    "Keywords": "Aging, Older Adults, Mental Health, Mental Illness"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Community Health Survey � Healthy Aging",
+    "Acronym (English)": "CCHSHA",
+    "Description (English)": "The Canadian Community Health Survey - Healthy Aging is part of the Canadian Community Health Survey program, but is a unique survey in that the target population, objectives, and many of the questions differ from those of earlier surveys administered under the umbrella of CCHS.\nThe survey focuses on the health of Canadians aged 45 and over by examining the various factors that impact healthy aging, such as general health and well-being, physical activity, use of health care services, social participation, as well as work and retirement transitions.",
+    "Keywords": "Aging, Older Adults"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Community Health Survey - Nutrition",
+    "Acronym (English)": "CCHSNTR",
+    "Description (English)": "The Canadian Community Health Survey � Nutrition will give a detailed and up-to-date picture of not only what people are eating and what vitamins and minerals they take, but the impact this has on health and well-being. It will also evaluate changes in food consumption, nutrition and health since this survey was last done in 2004.",
+    "Keywords": "Nutrition"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Health Survey on Children and Youth",
+    "Acronym (English)": "CHSCY",
+    "Description (English)": "The Canadian Health Survey on Children and Youth (CHSCY) is a cross-sectional survey that collects information on issues that have an impact on the physical and mental health of children and youth in Canada.\n\nThe survey covered a broad range of topics including long-term conditions, injuries, physical activity, nutrition and children�s social environment.",
+    "Keywords": "Youth, Children"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canada Survey of Giving, Volunteering, and Participating",
+    "Acronym (English)": "CSGVP",
+    "Description (English)": "This file contains information collected from nearly 15,000 respondents aged 15 and over residing in private households in the provinces. The public use microdata file provides provincial-level information about the ways in which Canadians donate money and in-kind gifts to charitable and non-profit organizations; volunteer their time to these organizations; provide help directly to others. Socio-demographic, income and labour force data are also included on the file.",
+    "Keywords": "Donations, Volunteer, Giving, Charitable Giving"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Healthy Behaviour in School-Aged Children",
+    "Acronym (English)": "HBSC",
+    "Description (English)": "The Health Behaviour in School-Aged Children (HBSC) study is a continuing, cross-national survey that is conducted by Queen�s University in collaboration with the World Health Organization (WHO) Regional Office for Europe internationally (www.hbsc.org), and the Public Health Agency of Canada (PHAC) nationally. The Canadian component of the HBSC is funded by PHAC.",
+    "Keywords": "Child Health"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Health Promotion Survey",
+    "Acronym (English)": "HPS",
+    "Description (English)": "The intention of HPS was to establish a national database on health practices and conditions closely related to the health and well-being of our adult population. It established both national and provincial baseline data on the knowledge, attitudes, beliefs, intentions and behaviours of adult Canadians on a wide range of health promotion issues (e.g. fitness, nutrition, safety and use of tobacco, alcohol, and drugs). \nTwo cycles were conducted, the first one is 1985 and second one in 1990. \n\nTopics included in the survey were: \n- perceptions of health\n- blood pressure and cholesterol\n- alcohol use\n- exercise\n- nutrition\n- dental health\n- workplace health and safety\n- environmental health \n- and sexually transmitted diseases.",
+    "Keywords": "Health Promotion"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Maternity Experiences Survey",
+    "Acronym (English)": "MES",
+    "Description (English)": "The Maternity Experiences Survey (MES) is a national survey of Canadian women�s experiences, perceptions, knowledge and practices before conception and during pregnancy, birth and the early months of parenthood. The MES is a project of the Public Health Agency of Canada�s Canadian Perinatal Surveillance System, which monitors and reports on determinants and outcomes of maternal, fetal and infant health in Canada. The MES was developed and implemented by the Public Health Agency of Canada in collaboration with Statistics Canada.",
+    "Keywords": "Birth, Women, Maternity, Maternal Health"
+  },
+  {
+    "Database/Dataset/System Name (English)": "National Survey of the Work and Health of Nurses",
+    "Acronym (English)": "NSWHN",
+    "Description (English)": "The 2005 NSWHN was designed to be representative of nurses who were registered and employed in nursing in Canada at the time of the interview. Data from the survey were weighted to permit representative estimates of each of three nursing bodies -- registered nurses, licensed practical nurses and registered psychiatric nurses -- at the provincial level. Because of the relatively small number of nurses employed in the Yukon Territory, the Northwest Territories and Nunavut, estimates were produced for the territories combined. While RNs and LPNs are employed throughout Canada, RPNs are found almost exclusively in Manitoba, Saskatchewan, Alberta and British Columbia. The survey did not include retired or unemployed nurses.",
+    "Keywords": "Nurses"
+  },
+  {
+    "Database/Dataset/System Name (English)": "National Population Health Survey",
+    "Acronym (English)": "NPHS",
+    "Description (English)": "The NPHS collects information related to the health of the Canadian population and related socio-demographic information. It is composed of three components: the Households, the Health Institutions, and the North components.",
+    "Keywords": "Population Health"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey of Living with Chronic Diseases in Canada",
+    "Acronym (English)": "SLCDC",
+    "Description (English)": "The SLCDC is a cross-sectional survey sponsored by the Public Health Agency of Canada that collects information related to the experiences of Canadians with chronic health conditions. The SLCDC data can be used by governments to better plan and provide health services for persons with chronic health conditions and to develop public education campaigns primarily aimed at health promotion and disease prevention. Researchers will be able to use the data to monitor, analyse, measure and report on those factors affecting chronic health conditions.",
+    "Keywords": "Chronic Health Conditions"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey on Ageing and Independence",
+    "Acronym (English)": "SAI",
+    "Description (English)": "This national survey is sponsored by Health Canada, Consumer and Corporate Affairs, Canada Mortgage and Housing Corporation, Communications Canada, Veterans Affairs and Secretary of State. The purpose of the survey is to provide \"baseline\" information on factors important to remaining independent in the community as one ages and to measure a wide range of characteristics of Canadians, 45 years of age and older.",
+    "Keywords": "Older Adults, Aging, Elderly, Seniors"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Youth Smoking Survey",
+    "Acronym (English)": "YSS",
+    "Description (English)": "The survey collects basic data on alcohol and drug use by students in grades 7 to 9 (in Quebec secondary 1 to 3). Results of the Youth Smoking Survey will help with the evaluation of anti-smoking and anti-drug use programs, as well as with the development of new programs.\n\nThe YSS collects information on the following topics:\n- the prevalence of smoking among students in grades 5 to 9 (in Quebec primary school grades 5 and 6 and secondary school grades 1 to 3);\n- the types of smoking behaviour among children (e.g. experimental smoking, occasional smoking, daily smoking);\n- the social and demographic factors associated with smoking behaviour (e.g. what motivates children to smoke, the influence of family and friends);\n- where and how children obtain cigarettes;\n- attitudes and beliefs about smoking, including awareness of health risks;\n- recollection and opinions on health warning messages on cigarette packages;\n- experience with alcohol, drugs and medications used for non-medical purposes.",
+    "Keywords": "Cigarettes, Smoking, Youth"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Ontario Health Survey",
+    "Acronym (English)": "OHS",
+    "Description (English)": "The Ontario Health Study is an ongoing research study investigating risk factors that cause diseases like cancer, diabetes, heart disease, asthma and Alzheimer�s. Between 2009 and 2017, the OHS recruited over 225,000 Ontario residents over the age of 18 to complete health-related questionnaires online, with follow-up questionnaires administered over time to follow their health as they age. Researchers will use this health information to study how our lifestyle, environment and family history affect our health over time and to develop strategies for the prevention, early detection and treatment of diseases. The Ontario Health Study also collected over 40,000 blood samples.",
+    "Keywords": "Ontario"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Vital Statistics �Birth Data",
+    "Acronym (English)": "CVSB",
+    "Description (English)": "The National Birth Database is an administrative survey that collects demographic information annually from all provincial and territorial vital statistics registries on all live births in Canada.\n\nThe main form for the registration of a live birth is completed by the parents, who are responsible for filing it with the local registrar. Most provinces also require physicians (or other birth attendants) to report all births.\n\nThe central Vital Statistics Registry in each province and territory provides data from birth registrations to Statistics Canada.",
+    "Keywords": "Birth, Vital Statistics"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Vital Statistics Stillbirth",
+    "Acronym (English)": "CVSS",
+    "Description (English)": "The Canadian Vital Statistics Stillbirth (CVSS) is an administrative survey that collects demographic information annually from all provincial and territorial vital statistics registries on all stillbirths (fetal deaths) in Canada.\n\nThe form for the registration of a stillbirth is usually completed by the parents, who are responsible for filing it with the local, provincial or territorial registrar. Stillbirth registration requires a medical certificate of the cause of stillbirth to be completed by a physician or coroner. The central Vital Statistics Registry in each province and territory provides data from stillbirth registrations to Statistics Canada.",
+    "Keywords": "Stillbirth, Infants"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Vital Statistics Death",
+    "Acronym (English)": "CVSD",
+    "Description (English)": "This is an administrative survey that collects demographic and medical (cause of death) information annually and monthly from all provincial and territorial vital statistics registries on all deaths in Canada.",
+    "Keywords": "Death, Mortality"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Census Data",
+    "Acronym (English)": "CENSUSPOP",
+    "Description (English)": "The Census of Population is the primary source of socioeconomic data for specific population groups (e.g. First Nations people, M�tis and Inuit, immigrants, language groups) and for detailed or small geographies. The Census of Population is mandated by law in the Constitution Act (1867) and the Statistics Act (1985) to determine the population of Canada and its' provinces and territories, every five years.",
+    "Keywords": "Population, Census"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Aboriginal Population Projections",
+    "Acronym (English)": "N/A",
+    "Description (English)": "Projections have been prepared for persons who identify with any of the following groups: the North American Indian population, the M�tis or the Inuit. Geographical detail for each group is different and depends on the group�s size. All three groups were projected separately for each of the ten provinces and three territories. However, the subprovincial and subterritorial level shown for the three groups varies. For the North American Indians, future numbers were calculated for the urban parts of all census metropolitan areas (CMAs), urban areas outside CMAs, rural areas, and reserves. For the M�tis, places of residence were grouped into urban parts of CMAs, urban areas outside CMAs, and rural areas, which also comprise reserves. Because of their relatively small size, the Inuit population was projected separately for urban and rural locations only.",
+    "Keywords": "Aboriginal, First Nations, Indigenous, Population Projections"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Population Estimates at P/T and CSD Level",
+    "Acronym (English)": "SCCD",
+    "Description (English)": "Statistics Canada�s Centre for Demography produces annual population estimates at the national, provincial, and territorial levels. It also produces annual population estimates at the census subdivision (CSD) level. The reference date for these annual population estimates is July 1 of each year. Population estimates are produced using a specific year�s Standard Geographical Classification (SGC).",
+    "Keywords": "Population, Population Data, Census, Census Data, Demographic Estimates"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Population Projections",
+    "Acronym (English)": "N/A",
+    "Description (English)": "The population projections are highly relevant and useful, in that they provide an opportunity to think about changes that the country will probably experience in the future. Changes are altering the country�s demographic composition and its distribution, and are therefore likely to have economic, political and social repercussions",
+    "Keywords": "Demographic Composition, Demographic Distribution, Population Projections"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Postal Code Conversion File",
+    "Acronym (English)": "PCCF",
+    "Description (English)": "The Postal Code Project is responsible f or linking the approximately 900,000 single postal codes in Canada to Statistics Canada�s Census dissemination geography, (presently 2016 Census geography). This process is performed by using data provided by Canada Post Corporation and linked to Census Dissemination geography via the process of geocoding. The result is the creation of the Postal Code Conversion File (PCCF) which provides a correspondence between the six character postal code and Statistics Canada�s standard geographical areas and the Postal Code Federal Ridings File (PCFRF) which provides a link between the six character postal code and Canada�s federal electoral districts.",
+    "Keywords": "Postal Code, Census Data, Linking"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Drug Store and Hospital Purchases Audit",
+    "Acronym (English)": "CDH",
+    "Description (English)": "CDH is used to measure the dollar value and unit (i.e. bottles and/or pills) volume of pharmaceutical products including prescription, over the counter (OTC), and some diagnostic products purchased by retail pharmacies and hospitals. It provides information on national and provincial purchases. Data from NF and PEI are combined. Data for CDH are collected from a representative sample of retail pharmacies and hospitals which includes 2000+ drugstores and 600+ hospitals. The CDH is created by using purchase activity for ~3,000 drug stores and ~650 hospitals across Canada from the IQVIA census Sales Database.",
+    "Keywords": "Pharmaceutical Data, Hospitals, Prescriptions, Over-the-Counter, Diagnostic Products, Pharmacies"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian CompuScript",
+    "Acronym (English)": "CS",
+    "Description (English)": "CompuScript provides projected monthly dispensed prescriptions of pharmaceutical products in drug stores in Canada at the provincial level (NF/PEI are combined). No hospital data is included.",
+    "Keywords": "Pharmaceutical Drugs, Drug Stores"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Antimicrobial Resistance Surveillance System",
+    "Acronym (English)": "CARSS",
+    "Description (English)": "CARSS was created as the national focal point for AMR/AMU surveillance in Canada. It represents an important step in the evolution of the Agency�s surveillance programs to act against AMR. CARSS oversees and champions federal surveillance transformation activities. Through CARSS, PHAC will address requirements and data needs identified by internal and external stakeholders from a comprehensive integrated perspective. CARSS works with PHAC�s existing surveillance programs and other government departments/agencies to identify new opportunities to collect, share and analyse AMR/AMU data in Canada.",
+    "Keywords": "Antimicrobial Resistance, Antimicrobial Resistant Neisseria Gonorrhea, Antimicrobial Resistant Organisms, Antibiotic, Antimicrobial, Antimicrobial Resistant Pathogens, AMR, AMU"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced Hepatitis Strain Surveillance System",
+    "Acronym (English)": "EHSSS",
+    "Description (English)": "CCDIC database of acute HBV or HCV case completed survey questionnaires\nNML database of HBV or HCV genotype and other molecular characterization data for acute case samples sent from participating provinces",
+    "Keywords": "Hepatitis B, Acute Infection, Genotype, Hepatitis C"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Tracks Enhanced Surveillance System",
+    "Acronym (English)": "TRACKS",
+    "Description (English)": "The Tracks Enhanced Surveillance System is a behavioural and biological active surveillance system that monitors HIV, hepatitis C and other sexually transmitted and blood?borne infections and associated risk behaviours among key populations in Canada. \nThe system uses repeated cross?sectional surveys at selected sentinel sites across Canada and employs consistent sampling and recruitment strategies over time. The system is conducted in partnership with provincial and/or local health authorities, local community organizations, and community?involved (university?based) researchers.",
+    "Keywords": "Bio-Behaviourial Surveys, STBBI, Hepatitis C, Associated Risk Behaviour, HIV"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced Surveillance of Antimicrobial Resistant Gonorrhoea",
+    "Acronym (English)": "ESAG",
+    "Description (English)": "ESAG is an enhanced surveillance system linking?epidemiological, clinical (treatment) , and laboratory data (antibiotic susceptibility data, NG-MAST) on N. gonorrhoeae cases. The ESAG system was established in 2013 and data collection began in 2014 from three participating PTs (Alberta, Manitoba, and Nova Scotia). Since 2015, there are four PTs providing data to the ESAG system (Alberta, Manitoba, Northwest Territories, and Nova Scotia).",
+    "Keywords": "Enhanced Epidemiology, Antimicrobial Resistance, Gonorrhea"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Tuberculosis Reporting System",
+    "Acronym (English)": "CTBRS",
+    "Description (English)": "Tuberculosis (TB) has been notifiable in Canada since 1924 and is currently legally reportable in all P/Ts.��All P/T public health authorities voluntarily submit data on TB cases that meet the case definition for national?level surveillance to the CTBRS on an annual basis. The CTBRS is managed by PHAC; it is a case?based surveillance system which maintains selected non?nominal data on people diagnosed with active TB disease in Canada.",
+    "Keywords": "Drug Use, HIV, TB, Tuberculosis, Residential Status, Minority Group, TB Treatment Outcome"
+  },
+  {
+    "Database/Dataset/System Name (English)": "CTBLSS - Canadian Tuberculosis Laboratory Surveillance System",
+    "Acronym (English)": "CTBLSS",
+    "Description (English)": "Tuberculosis Prevention and Control (TBPC) at the Centre for Infectious Disease Prevention and Control, PHAC, in collaboration with the Canadian Tuberculosis Laboratory Technical Network and participating laboratories (representing all provinces and territories) established a laboratory-based national surveillance system, the Canadian Tuberculosis Laboratory Surveillance System (CTBLSS) an isolate- based surveillance system,  in 1998 with the goal of monitoring tuberculosis (TB) drug resistance patterns in Canada.  Data for the CTBLSS are collected either through manual completion of a standard reporting form or by electronic transmission. Information requested includes sex, year of birth, province/territory from which the specimen originated, province/territory where the tests were performed, and drug susceptibility results.",
+    "Keywords": "Goal of monitoring tuberculosis (TB) drug resistance patterns in Canada"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian HIV-Strain and Drug Resistance Surveillance System",
+    "Acronym (English)": "SDR",
+    "Description (English)": "SDR was established in 1998 as a result of the Krever Commission recommendations for strengthening Health Canada�s Blood Safety Program. It is a key component of a national system for enhanced surveillance of HIV/AIDS, emerging retroviruses, and other sexually transmitted blood?borne pathogens. SDR integrates laboratory and epidemiologic data to characterize the genetic diversity of the HIV epidemic in Canada.  Specifically, it aims to monitor HIV subtypes and transmitted drug resistance among patients newly diagnosed with HIV who have never received antiretroviral treatment.",
+    "Keywords": "Drug Resistant, HIV, AIDS"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Routine Surveillance of Hepatitis B & C",
+    "Acronym (English)": "HEP B&C",
+    "Description (English)": "Analysis of Hepatitis B and C case reports in Canada using Canadian Notifiable Disease Surveillance System data",
+    "Keywords": "Hepatitis"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Nosocomial Infections Surveillance Program",
+    "Acronym (English)": "CNISP",
+    "Description (English)": "CNISP is a collaborative effort between the Public Health Agency of Canada's Centre for Communicable Diseases and Infection Control (CCDIC) and the National Microbiolgoy Laboratory (NML), the Association of Medical Microbiology and Infectious Disease (AMMI) Canada and sentinel hospitals across Canada. CNISP is PHAC's largest national sentinel hospital system. Currently, 90 sentinel hospitals from all 10 provinces and 2 territories participate in the CNISP network. \nCNISP collects data on selected healthcare-associated infections including antimicrobial resistant organisms, produces national infection rates and reports on trends in antimicrobial resistance patterns, molecular characterization (spa-types, ribotypes etc), and antimicrobial usage in hospitals.",
+    "Keywords": "Healthcare-Associated Infections, Antimicrobial Resistant Organisms, Antimicrobial Resistance"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Routine Surveillance of Notifiable Sexually Transmitted Infections",
+    "Acronym (English)": "RSNSTI",
+    "Description (English)": "The Canadian Notifiable Disease Surveillance System collects data on all reportable STIs. CCDIC performs analysis of STBBI case reports based on Canadian Notifiable Disease Surveillance System data. The system reports cases and rates of notifiablee sexually transmitted infections by age, sex and province/ territory.",
+    "Keywords": "Congenital Syphilis, Sexually Transmitted Infections, STI, STBBI, Chlamydia, Gonorrhea, Infectious Syphilis"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Creutzfeldt-Jakob Disease Surveillance System",
+    "Acronym (English)": "CJDSS",
+    "Description (English)": "The Canadian Creutzfeldt-Jakob Disease Surveillance System (CJDSS) is operated by the Public Health Agency of Canada, and conducts prospective national surveillance for all types of human prion disease in Canada. Following an internationally accepted model for comprehensive surveillance of human prion diseases that is promoted by the World Health Organization, the CJDSS offers support to collaborating health professionals via consultation, laboratory investigations, logistic support, and education. The resulting diagnostic and epidemiologic information is assembled and used to support epidemiological analysis and public health decision-making.",
+    "Keywords": "Prion Disease, CJD, Variant CJD, Epidemiologic Surveillance, Creutzfeldt-Jakob Disease"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced Acute Flaccid Paralysis Surveillance",
+    "Acronym (English)": "AFP",
+    "Description (English)": "The purpose of Canada�s AFP surveillance system is to monitor Canada�s polio-free status by ensuring a sensitive, active surveillance system and prompt appropriate investigation of AFP cases to rule out the possibility of poltyuirtuietyiovirus infection.",
+    "Keywords": "Acute Flaccid Paralysis, AFP"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Measles and Rubella Surveillance System",
+    "Acronym (English)": "CMRSS",
+    "Description (English)": "CMRSS captures epidemiological and laboratory information on all measles, rubella, and congenital rubella cases in Canada on a weekly basis to continuously monitor the elimination of these diseases at the national level. This surveillance serves to fulfill international reporting obligations.",
+    "Keywords": "Infectious Diseases, Measles, Rubella, Congenital Rubella"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Integrated COVID-19�Surveillance System",
+    "Acronym (English)": "None",
+    "Description (English)": "",
+    "Keywords": "Surveillance, Virus, Outbreak, Covid-19"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced Invasive group A Streptococcus Surveillance System",
+    "Acronym (English)": "None",
+    "Description (English)": "A national enhanced invasive Group A Streptococcus (iGAS) surveillance pilot was implemented by the PHAC, with participation from the P/Ts and the NML. Over a three-year period (2019 to 2020), time-limited enhanced national surveillance of iGAS is conducted, where PHAC will manage a national surveillance database of iGAS cases reported by participating provinces and territories.",
+    "Keywords": "Group A Streptococcus, Invasive, Bacterial, iGAS"
+  },
+  {
+    "Database/Dataset/System Name (English)": "FluWatch",
+    "Acronym (English)": "FluWatch",
+    "Description (English)": "FluWatch gives an overview of the epidemiology of influenza in Canada. It contributes to the early detection of influenza activity in Canada, provides timely information, and quickly detects emerging and re?emerging respiratory pathogens across the country. FluWatch supports the Canadian recommendations on vaccine composition (to WHO), and contributes to Canada meeting its IHR obligations.",
+    "Keywords": "Seasonal Flu, Seasonal Influenza"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Integrated Program for Antimicrobial Resistance Surveillance",
+    "Acronym (English)": "CIPARS",
+    "Description (English)": "The Canadian Integrated Program for Antimicrobial Resistance Surveillance (CIPARS) monitors trends in antimicrobial use and antimicrobial resistance in selected bacterial organisms from human, animal and food sources across Canada. The program is based on several representative and methodologically unified surveillance components which can be linked to examine the relationship between antimicrobials used in food-animals and humans and the associated health impacts. \nThis information supports: \n(i) the creation of evidence-based policies to control antimicrobial use in hospital, community, and agricultural settings and thus prolong the effectiveness of these drugs, and\n(ii) the identification of appropriate measures to contain the emergence and spread of resistant bacteria between animals, food, and people in Canada.",
+    "Keywords": "Antimicrobial, AMR, Antibiotic, Antimicrobial Resistance, Antimicrobial Use, Antibiotic Resistance"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Immunization Monitoring Program ACTive",
+    "Acronym (English)": "IMPACT",
+    "Description (English)": "For almost 25 years, the Canadian Immunization Monitoring Program, ACTive (IMPACT) has been conducting active surveillance for severe adverse events following immunization (AEFIs) and vaccine?preventable diseases in children.  IMPACT active surveillance aims to detect unexpected or unusual occurrences that result in hospitalization after vaccination and to monitor vaccine?preventable diseases. It is well?positioned to detect and monitor changes in serious events, signals of concern, and emerging diseases in the paediatric inpatient population that. \n\nIMPACT has also been collecting influenza hospitalization data in the pediatric population since 2003. Hospitals within the network perform viral diagnostic tests on children admitted with acute respiratory symptoms and nurse monitors review medical charts of children to determine wither influenza was the cause of admission and collects epidemiological data related to the case. \n\nIMPACT also conducted respiratory syncytial virus (RSV) hospitalization surveillance in the pediatric population over 3 seasons: 2017-18; 2018-19; 2019-20). Hospitals within the network performed viral diagnostic tests on children admitted with acute respiratory symptoms and nurse monitors reviewed medical charts of children to determine whether RSV was the cause of admission and collected epidemiological data related including passive immunization with palivizumab and virologic testing data and also submitted a sample of viral isolates on to the NML for RSV typing and partial genome sequencing.",
+    "Keywords": "AFP, Invasive Pneumococcal Disease, Seasonal Influenza, Varicella, Haemophilus Influenza, Acute Flaccid Paralysis, Pertussis, Respiratory Syncytial Virus (RSV)"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Severe Acute Respiratory Illness (SARI) Case Reporting (domestic events)",
+    "Acronym (English)": "SARI",
+    "Description (English)": "Method for reporting Severe Acute Respiratory Illness (SARI) cases to PHAC.\n\nHealthcare professionals are encouraged to tell local public health officials of emerging respiratory pathogen (ERP) and SARI events, which are then reported up to relevant authorities. At the provincial/territorial level, public health authorities complete and submit an ERP and SARI case report form (found online at canada.ca) to PHAC via fax and email. This notification should occur within 24 hours of case notification to the relevant jurisdiction. The initial case report form does not need to be fully completed, but as further details of the event/case are discovered, updates will be relayed to PHAC.",
+    "Keywords": "Severe Acute Respiratory Infection, Epidemic and Pandemic Prevention, Public Health Response, Case Report, Emergence"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Transfusion Transmitted Injuries Surveillance System",
+    "Acronym (English)": "TTISS",
+    "Description (English)": "Transfusion Transmitted Injuries Surveillance System (TTISS) has been monitoring adverse reactions related to the transfusion of blood, blood components, and blood products (plasma derivatives) in Canada since 2001. \n\nAs of 2007, all provinces and the Northwest and Yukon territories participate in the TTISS.  Almost 100% of blood transfusion activities are monitored by the TTISS network. ",
+    "Keywords": "Blood, Transfusion, Injury"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Transfusion Errors Surveillance System",
+    "Acronym (English)": "TESS",
+    "Description (English)": "The TESS was initiated in 2005 by the Public Health Agency of Canada (the Agency) to monitor errors occurring at any point in the transfusion chain. Currently, 15 hospitals participate in the surveillance and report all transfusion-related errors to the Agency on a quarterly basis. By tracking transfusion-related errors, it is possible to identify the points in the transfusion chain where errors most commonly occur, as well as the points where changes can be implemented in order to limit the opportunity for transfusion errors.",
+    "Keywords": "Blood, Transfusion Error"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Cell, Tissue & Organ Surveillance System",
+    "Acronym (English)": "CTOSS",
+    "Description (English)": "CTOSS involves 5 P/Ts and covers approximately 34% of transplantation activities in the country. Currently, it only monitor tissue transplantation in Canada. Data collected through CTOSS supports evidence-informed decision making for public health and patient safety provincially and nationally. Transplantation adverse event surveillance data is critical to our ability to improve patient safety by limiting and preventing transplant associated adverse events.",
+    "Keywords": "Tissue, Transplantation"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Wastewater Surveillance Unit (National Wastewater Surveillance Program)",
+    "Acronym (English)": "NWS",
+    "Description (English)": "RT-qPCR based surveillance of SARS-CoV-2, including the monitoring of specific variants through targeted PCRs.",
+    "Keywords": "Wastewater, SARS-CoV-2"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Lymphogranuloma Venereum Surveillance in Canada",
+    "Acronym (English)": "CT LGV",
+    "Description (English)": "Databases of cases of lymphogranuloma venereum in Canada genotyped by sequencing. Biobank of LGV sample that can be used for further molecular epidemiology investigation or antimicrobial resistance detection.  Samples are sent by provincial laboratories with date of collection, site of collection and sex of the individual.",
+    "Keywords": "Lymphogranuloma Venereum, Genotyping, Molecular Epidemiology"
+  },
+  {
+    "Database/Dataset/System Name (English)": "AMRNet",
+    "Acronym (English)": "AMRNet",
+    "Description (English)": "AMRNet is a collaboration between PHAC, provincial and territorial public health organizations as well as clinical and veterinary laboratories across the country. The AMRNet surveillance system captures information on antimicrobial susceptibility testing from laboratory information systems in clinical and veterinary laboratories including both public and private facilities. The AMRNet system will also capture data from long-standing PHAC surveillance programs that conduct in-depth AMR surveillance in specific settings (eg, CNISP, CIPARS and ESAG). Ultimately, AMRNet aims to capture all antimicrobial susceptibility testing results from all bacterial and fungal pathogens across Canada.",
+    "Keywords": "Antimicrobial Resistance"
+  },
+  {
+    "Database/Dataset/System Name (English)": "International Circumpolar Surveillance System",
+    "Acronym (English)": "ICS",
+    "Description (English)": "Surveillance for invasive bacterial diseases provides valuable information on their incidence, severity and laboratory characteristics. The international Circumpolar Surveillance (ICS) System's Invasive Bacterial Disease (IBD) Working Group falls within the madate of the Sustainable Developement Working Group of the International Arctic Council. The ICS network is a unique collaboration within the circumpolar north which combines population-based surveillance with epidemiological and laboratory linkages.",
+    "Keywords": "Bacterial Surveillance"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced Invasive Pneumococcal Disease Surveillance System",
+    "Acronym (English)": "eIPDSS",
+    "Description (English)": "The enhanced Invasive Pneumococcal Disease Surveillance System (eIPDSS) pilot project was designed to facilitate a better understanding of IPD trends at the national level by linking epidemiology and laboratory (epi-lab) data.  EIPDSS is a simple, timely, epi-lab linked surveillance system that captures representative, robust information for more accurate interpretations of IPD and antimicrobial susceptibility trends. Ultimately, the system could help to prevent IPD by giving explicit information on serotypes and vaccination status that would inform policy decisions and immunization and prevention programs.",
+    "Keywords": "Invasive Pneumococcal Disease"
+  },
+  {
+    "Database/Dataset/System Name (English)": "National Enhanced Invasive Meningococcal Disease Surveillance System",
+    "Acronym (English)": "eIMDSS",
+    "Description (English)": "In Canada, Invasive Meningococcal Disease (IMD) cases caused by serogroups A and C are most frequently identified in cases before 1975 and serogroup B predominated between 1975 and 1985. Since 1985, both the total number of IMD cases and the number of serogrpup C cases increased and peaked in 1992. The eIMDSS was introduced to capture epidemiological and laboratory-linked data.",
+    "Keywords": "IMD, Meningococcal"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Respiratory Virus Detections Surveillance System",
+    "Acronym (English)": "RVDSS",
+    "Description (English)": "The Respiratory Virus Detection Surveillance System collects data from select laboratories across Canada on the number of tests performed and the number of tests positive for influenza and other seasonal respiratory viruses. Data are reported on a weekly basis year-round to the Centre for Immunization and Respiratory Infectious Diseases (CIRID), Public Health Agency of Canada. These data are also summarized in the weekly FluWatch report.",
+    "Keywords": "Seasonal respiratory viruses, Seasonal Influenza"
+  },
+  {
+    "Database/Dataset/System Name (English)": "International Monitoring and Assessment Tool (IMAT)",
+    "Acronym (English)": "IMAT",
+    "Description (English)": "IMAT is a surveillance tool represented by a dataset that gathers qualitative data  on events related to Emerging Respiratory Pathogens (ERP) in humans ( e.g. Description of new H5N1 avian influenza  case in a human in the United States in 2022)",
+    "Keywords": "Human Emerging Respiratory Pathogen, International Health Regulations, Avian Influenza, Swine Influenza, Middle East Respiratory Syndrome Coronavirus (MERS-CoV), SARS, Unusual and Unexpected Respiratory Illness of Unknown Cause - Severe Acute Respiratory Illness (SARI)"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Seasonal Influenza Vaccination Coverage Survey",
+    "Acronym (English)": "SIVCS",
+    "Description (English)": "SIVCS collects information about the annual uptake of the flu shot in Canada. Each flu season, the SIVCS surveillance system uses survey data to estimate how many people were vaccinated that year as well as knowledge, attitudes, and beliefs about the flu shot. Every two years, the survey also collects information about other recommended vaccines for adults, including: pertussis (whooping cough), tetanus, pneumococcal disease, and shingles. Results from the survey provide information about how well Canadian adults are protected against vaccine preventable diseases, broken down by gender and age group, as well as what they know and think about vaccines. Survey results are used to measure progress towards achieving Canada's national vaccination coverage goals, determine reasons for non-vaccination, identify potential impacts of the COVID-19 pandemic on seasonal influenza vaccine uptake, assess how well vaccination programs are working and how they could be improved, and report Canada's vaccination coverage to the World Health Organization. Reports are produced annually and data are available since 2015.",
+    "Keywords": "Vaccination, Influenza"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Laboratory Incident Notification Canada (LINC) Laboratory Exposure Surveillance System",
+    "Acronym (English)": "LINC",
+    "Description (English)": "The Human Pathogens and Toxins Act/Regulations came into full force in December 2015. In Canada, anyone conducting controlled activities with Risk Group 2, 3 and 4 human pathogens and biological toxins listed in the HPTA/R must have a licence. 1 legislative requirement for licence holders is the reporting of exposures and laboratory acquired infections (LAI) to PHAC. \n\nTo facilitate effective surveillance, reporting processes were developed, test, and implemented and data collection through the biosecurity portal is ongoing. Given that laboratory exposure incident data are currently lacking in Canada and internationally, data from this system will inform evidence-based decision-making. Data inputs in this surveillance system are self-reported, accuracy is validated through the ongoing investigatory process involving both PHAC and the reporter. The data in the LINC surveillance systems are provided by regulated parties across Canada who recognize that an incident has occurred and is reportable as per the HPTA. ",
+    "Keywords": "Laboratory, Exposure, Incident, LAI, Laboratory Acquired Infection, Near-Miss, Investigation"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Gonococcal Antimicrobial Surveillance Program",
+    "Acronym (English)": "GASP",
+    "Description (English)": "Canadian national laboratory surveillance of antimicrobial resistance in Neisseria gonorrhoeae",
+    "Keywords": "Antimicrobial Resistant Neisseria Gonorrhea"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Childhood National Immunization Coverage Survey",
+    "Acronym (English)": "cNICS",
+    "Description (English)": "'cNICS monitors national immunization coverage for vaccines administered to children in Canada. PHAC collaborates with Statistics Canada to implement cNICS and Statistics Canada collects the data on behalf of PHAC. The survey is given out to parents biennially. The objectives of cNICS are to determine if children are vaccinated in accordance with recommended immunization schedules for publicly funded vaccines, provide the World Health Organization and the Pan-American Health Organization with estimates of national vaccine coverage for childhood vaccines such as measles, diphtheria, pertussis, tetanus and polio, provide information on parental and guardian knowledge and beliefs about vaccines, and provide information on COVID-19 vaccination among children and the impact of the pandemic on immunization. Reports are produced every two years and data are available from 2011-2019. CNICS 2022 results will be released in the spring of 2023.",
+    "Keywords": "Vaccine, Children, Immunization, Vaccination"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Notifiable Diseases Surveillance System",
+    "Acronym (English)": "CNDSS",
+    "Description (English)": " The Canadian Notifiable Disease Surveillance System (CNDSS) monitors trends in nationally notifiable diseases, infectious diseases that have been identified collectively by the federal, provincial and territorial governments as priorities for monitoring and control. \n\nThe list of nationally notifiable diseases has been revised periodically. The list of notifiable diseases (ND) provides the disease names and years in which they were considered notifiable. Case definitions for nationally notifiable diseases are intended to support public health activities rather than clinical diagnosis. Standardized case definitions for national ND were first developed through a federal/provincial/territorial process in 1991, with subsequent editions in 2000 and 2009. Following the 2009 revision, the decision was taken to make future updates on a case-by-case basis.\n\nNotifiable Disease Online presents information based on data from the Canadian Notifiable Disease Surveillance System (CNDSS).",
+    "Keywords": "Notifiable Disease, Infectious Disease"
+  },
+  {
+    "Database/Dataset/System Name (English)": "HIV/ AIDS Surveillance System",
+    "Acronym (English)": "HASS",
+    "Description (English)": "The National HIV/AIDS Surveillance System is a passive case?based surveillance system that collates data voluntarily submitted to PHAC from all provincial and territorial public health authorities. The provinces and territories provide the data using the national case reporting form or using an electronic dataset transmission based on the provincial case report form.",
+    "Keywords": "HIV/AIDS"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enterovirus and Norovirus Genotyping Data",
+    "Acronym (English)": "ENGD",
+    "Description (English)": "Virus typing data",
+    "Keywords": "Enterovirus Serotype, Norovirus Genotype"
+  },
+  {
+    "Database/Dataset/System Name (English)": "National Laboratory Surveillance of Invasive Streptococcal Disease in Canada",
+    "Acronym (English)": "eSTREP",
+    "Description (English)": "National laboratory surveillance of  invasive Streptococcus pneumoniae, invasive Group A Streptococcus, invasive Group B Streptococcus performed by the National Microbiology Laboratory.",
+    "Keywords": "Group A Streptococcus, Streptococcus Pneumonia, Group B Streptococcus"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Parasite Outbreak Detection and Response",
+    "Acronym (English)": "PODR",
+    "Description (English)": "This dataset consists of genotyping results and cluster numbers for Canadian Cyclospora isolates sequenced during the Cyclospora season when Canadian cases of endemically aquired cyclosporiasis occur nationally, each year. Sequences are generated from a subset of cases and from stool that was not formalin-fixed in SAF- fixative. Genotyping was performed with the CDC's eight-marker targeted amplicon deep sequencing (TADS) genotyping method.",
+    "Keywords": "Foodborne Parasite, National Cyclospora Season, Targeted Amplicon Deep Sequencing, Genotyping Data, Cyclospora Cayatenesis"
+  },
+  {
+    "Database/Dataset/System Name (English)": "PulseNet Canada",
+    "Acronym (English)": "PNC",
+    "Description (English)": "PNC is a critical surveillance system used to quickly identify and respond to foodborne disease outbreaks.  It is led by the NML, and is a real-time molecular subtyping network for foodborne disease surveillance supporting the rapid detection and response to single- and multi-jurisdictional outbreaks. PNC has linkages to NESP and FNC sentinel surveillance programs.  This national network is dedicated to tracking the DNA fingerprints of for the majority of cases of bacterial enteric pathogens (Salmonella, species, Escherichia coli, Shigella species, Vibrio species and Listeria monocytogenes) as well as isolate level metadata. \n\nPNC specifically focuses on outbreak detection and response using molecular/genomic data collected on a daily basis. PNC manages and analyses the laboratory data during multi-jurisdictional outbreak investigation coordinating committee activations and supports single jurisdiction response to enable timely public health actions.",
+    "Keywords": "Bacteria, WGS, Surveillance, Enteric, Outbreak, Events"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Adult National Immunization Coverage Survey",
+    "Acronym (English)": "aNICS",
+    "Description (English)": "aNICS monitors immunization coverage for select adult immunizations in Canada through a survey that is conducted every two years by an external research on behalf of PHAC. aNICS collects data on the following vaccine-preventable diseases: invasive pneumococcal disease, tetanus, pertussis, varicella/chickenpox, hepatitis B, human papillomavirus, herpes zoster/shingles, monkeypox, meningococcal disease, poliomyelitis, and measles. aNICS also collects data on COVID-19 and influenza vaccines that supplement existing PHAC data sources. The objectives of aNICS are to provide biennial data to monitor immunization coverage among the general population of Canadians 18 years of age and older as well as select sub-populations (e.g., health care providers), determine knowledge, attitudes, and beliefs towards vaccination including vaccine hesitancy, and identify barriers and facilitators to vaccination. aNICS was first implemented in 2001 and was administered biennially until it was discontinued in 2016. aNICS will be relaunching in 2022 and will resume operating on a biennial cycle. Reports are produced every two years.",
+    "Keywords": "Vaccine, Immunization, Adults, Vaccination, Healthcare Workers, Chronic Health Conditions"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Survey of Vaccination During Pregnancy",
+    "Acronym (English)": "SVP",
+    "Description (English)": "'SVP monitors national immunization coverage for vaccines administered to pregnant women in Canada. PHAC collaborates with Statistics Canada to implement the survey and Statistics Canada collects the data on behalf of PHAC. As part of cNICS, SVP is conducted on a biennial cycle. The first cycle was launched in 2019. The objectives of SVP are to determine if pregnant women are vaccinated in accordance with recommended immunization schedules for publicly funded vaccines, provide the World Health Organization and the Pan-American Health Organization with estimates of national vaccination coverage for pregnant women, provide information on knowledge and beliefs about vaccines, and as of the latest cycle, provide information on the impact of the COVID-19 pandemic on immunization among children and pregnant women. Reports are produced every two years and data are currently only available for 2019. SVP 2022 results will be released in December of 2022.",
+    "Keywords": "Vaccine, Pregnancy, Immunization, Vaccination"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Yersinia Pestis Surveillance System",
+    "Acronym (English)": "None",
+    "Description (English)": "Annual collection of fleas from Yersinia pestis reservoirs in the Grasslands National Park for sentinel detection and monitoring of sylvatic plague",
+    "Keywords": "Plague, Yersinia Pestis, Fleas, Prairie Dog, Reservoir, Grasslands National Park, Zoonotic, Conservation"
+  },
+  {
+    "Database/Dataset/System Name (English)": "SARS-CoV-2 Genomic Surveillance System",
+    "Acronym (English)": "NGDB",
+    "Description (English)": "National genomics database (viral sequences, includes data collected across Canada and the border), note: this is used in conjunction with GISAID international genomics repository and case-based data (i.e. host metadata)",
+    "Keywords": "Bioinformatics, Forecasting, Viral Genomics, Whole Genome Sequencing, Phylodynamics"
+  },
+  {
+    "Database/Dataset/System Name (English)": "National West Nile Virus Surveillance",
+    "Acronym (English)": "NS-WNV",
+    "Description (English)": "WNV surveillance consist of multiple surveillance systems: human surveillance, mosquito surveillance, bird surveillance, and horse surveillance. \n\n- Human surveillance\n- Mosquito surveillance\n- Bird surveillance\n- Horse surveillance",
+    "Keywords": "West Nile Virus"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Outbreak Summaries Surveillance [Enteric Module]",
+    "Acronym (English)": "OSS",
+    "Description (English)": "FPT partnership. Data produced by the Outrbeak Summaries system may be linked to many Agency surveillance activities (e.g. NESP, FoodNet Canada, PulseNet Canada, Enhanced Listeriosis Surveillance System, and the Notifiable Disease Surveillance System).",
+    "Keywords": "Outbreak Events"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Lyme Disease Enhanced Surveillance",
+    "Acronym (English)": "LDES",
+    "Description (English)": "The LDES system includes: passive human surveillance; passive and active tick surveillance; and active field surveillance of wild small animal hosts. The government of Canada engages in surveillance activities to capture the number of people with Lyme disease and the areas of greatest risk of acquiring Lyme disease in Canada. It does this in partnership with provincial and territorial public health organization, health authorities, and university researchers. \n\nSurveillance is done by reporting of human Lyme disease cases by provincial and territorial public health organizations",
+    "Keywords": "Lyme Disease"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced Surveillance of Canadian Street Youth",
+    "Acronym (English)": "E-SYS",
+    "Description (English)": "Enhanced Surveillance of Canadian Street Youth (E-SYS) was initiated in 1998. The surveillance system was launched in direct response to recommendations made by provincial and territorial directors of sexually transmitted infections (STIs), at their 1997 national meeting. This system is the result of strong collaboration between local, provincial and federal public health stakeholders in addition to universities.",
+    "Keywords": "Sexual Behaviour, STI, STBBI, Communicable Diseases, Chlamydia, Gonorrhea, Infectious Syphilis, Infectious Disease, Hepatitis C, HIV, Disease Prevention Program, Sexual Health, Substance Use, Youth"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Global Public Health Intelligence Network",
+    "Acronym (English)": "GPHIN",
+    "Description (English)": "The Global Public Health Intelligence Network (GPHIN) was set up as a global network of connected professionals working to rapidly detect, identify, assess, prevent and mitigate threats to human health. Formed in the late 1990s by the Government of Canada (Health Canada) in collaboration with the World Health Organization, GPHIN is headquartered at the Public Health Agency of Canada in Ottawa, Ontario, Canada, with members both nationally and globally. To facilitate its activities, an automated Web-based system, accessible to members of the network, was developed to help collect, collate and filter media reports from around the globe.\n\nAs a unique Heath Portfolio source for all-hazards intelligence, GPHIN supports risk assessments by Health Portfolio programs and other federal departments through early alerting. GPHIN fulfils Canada�s IHR core capacity obligation for event-based surveillance and also supports the global health and health security communities through its capacity for early threat detection. GPHIN has therefore been deemed a critical program area supporting Canada�s health security and intelligence mandates for early detection, analysis, risk assessment, and communication of potential and emerging threats to human health. It has been recognised as a Big Data pioneer in public health, a significant contributor to global health security and a global situational awareness network for emerging public health risks.",
+    "Keywords": "Epidemic, International, Global Health, Early Warning, Situational Awareness, Event-Based Surveillance, Open Source, All Hazards, Outbreak"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Cohort Study on Obesity, Marijuana Use, Physical Activity, Alcohol Use, Smoking and Sedentary Behaviour",
+    "Acronym (English)": "COMPASS",
+    "Description (English)": "COMPASS annually collects hierarchical longitudinal data from a sample of 90 secondary schools and the 50,000+ grade 9 to 12 students attending those schools.",
+    "Keywords": "Youth, School-Based, Substance Use, Cross-Sectional, Cohort, Mental Health"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Hospitals Injury Reporting and Prevention Program",
+    "Acronym (English)": "CHIRPP",
+    "Description (English)": "The CHIRPP is an injury and poisoning surveillance system that collects and analyzes data on injuries to people who are seen at the emergency rooms of 11 pediatric hospitals (and one chilrdren's outpatient clinic within a general hospital) and 9 general hospitals in Canada. The CHIRPP is a unique, richly detailed database of \"\"pre-event\"\" injury information obtained by asking the following questions:\n1. What was the injured person doing when the injury happened? \n2. What went wrong?\n3. Where did the injury occur? \n\nMore than 4,1 million records have been collected nationally; more than 80% of these records concern children and youth 19 years of age and younger. The CHIRPP database provides information for summary reports on injury occurence and may also be used for more detailed research.CHIRPP ultimate goal is to reduce the number and severity of injuries in Canada. CHIRPP does not capture information about people who died before they could be taken to hospital or those who died after being admitted to hospital. ",
+    "Keywords": "Injury, Falls, Burns, Other Injuries, Self-Harm"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Chronic Disease Surveillance System",
+    "Acronym (English)": "CCDSS",
+    "Description (English)": "The Canadian Chronic Disease Surveillance System (CCDSS) is a collaborative network of provincial and territorial surveillance systems, supported by the Public Health Agency of Canada (PHAC). The CCDSS enhances the scope of data on chronic diseases in Canada and supports the planning of health resources and the development of health policies and programs. It collects data on all residents who are eligible for provincial or territorial health insurance and can generate national estimates and trends over time for over 20 chronic diseases and conditions.",
+    "Keywords": "Diabetes, Asthma, Arthritis, Gout and other Crystal Arthropathies, Cardiovascular Diseases, Acute Myocardial Infarction, Chronic Respiratory Disease, Chronic Obstructive Pulmonary Disease (COPD), Osteoporosis-related Fractures, Osteoporosis, Rheumatoid Arthritis, Forearm Fracture, Musculoskeletal Disorders, Osteoarthritis, Pelvic Fracture, Hip Fracture, Dementia, Humeral Fracture, Spine Fracture, Mood And Anxiety Disorders, Schizophrenia, Neurological Conditions, Hypertension, Stroke, Ischemic Heart Disease, Chronic Disease, Chronic Condition, Juvenile Idiopathic Arthritis, Mental Illness and Alcohol/Drug Induced Disorders, Mental Illness, Heart Failure, Alzheimer, Parkinson Disease, Multiple Sclerosis, Epilepsy And Parkinsonism"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Opioid and Stimulant Related Harms Surveillance System",
+    "Acronym (English)": "OSRHSS",
+    "Description (English)": "As a component of the response to the epidemic of opioid overdoses in Canada, ongoing data coordination and analysis is required to develop a national picture of the public health impact of substance-related harms. The national substance-related mortality surveillance system relies on data from death investigation findings form provincial/territorial Chief Coroner and Chief Medical Examiner (CC/CME) offices and territories.  Additionally, the Public Health Agency of Canada (PHAC)  collects data on emergency medical services responses to suspected opioid-related overdoses from the provinces and territories. PHAC acts as custodian of these data and in collaboration with provincial/territorial public health and CC/CME partners produces quarterly reports/data releases and other products for dissemination in order to help guide efforts to reduce substance-related harms and deaths.",
+    "Keywords": "Substance-Related Harms, Coroner/Medical Examiner Death Investigation, Emergency Medical Services"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Childhood COVID-19 Immunization Coverage Survey",
+    "Acronym (English)": "CCICS",
+    "Description (English)": "The aim of the Childhood COVID-19 Immunization Coverage Survey is to measure how many children and teens in Canada have received COVID-19 and flu vaccines. The survey will also ask parents about their views on these vaccines.",
+    "Keywords": "Vaccine, Immunization, Vaccination, Child, Parent"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Congenital Anomalies Surveillance System Database",
+    "Acronym (English)": "CCASS",
+    "Description (English)": "Congenital anomalies are a leading cause of infant mortality, morbidity and life-long disability in Canada. The CCASS, established in 1966 after the Thalidomide tragedy is an important component of PHAC�s perinatal health surveillance activities.  The CCASS monitors and reports on birth prevalence and temporal trends of congenital anomalies in Canada and associated factors. It also conducts targeted epidemiological studies on issues highly relevant to the program�s mandate. The 2008 Memorandum to Cabinet titled: Action Plan to Protect Human Health from Environmental Contaminants provides the authority to undertake enhanced congenital anomalies surveillance across Canada.",
+    "Keywords": "Chronic Condition, Congenital Anomalities"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Vulnerable and Hard-to-Reach Populations COVID-19 Immunization Coverage Survey (VHCICS)",
+    "Acronym (English)": "VHCICS",
+    "Description (English)": "PHAC will receive pre-validated as well as the final datasets. The datasets will be clean with all variable names, labels and values included. Unique ID codes will be used. No directly identifying information will be collected or included in the data.",
+    "Keywords": "Other COVID-19 immunization surveillance surveys led by VRTF"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian National Vaccine Safety Network",
+    "Acronym (English)": "CANVAS",
+    "Description (English)": "CANVAS is a national surveillance system led by the Canadian Institute for Health Research (CIHR), through grant support provided by PHAC, which assesses vaccine safety immediately after implementation of vaccine campaigns. The network is comprised of sites in Vancouver, Calgary, Toronto, Ottawa, Quebec City, Sherbrooke, and Halifax. The objectives of CANVAS are to monitor seasonal influenza vaccine safety as well as the safety of other and new vaccines, including the COVID-19 vaccines. CANVAS also provides a platform for vaccine acceptability studies and provides data to inform public health decision-making about immunization programs. The research is published via online reports and made available to stakeholders. Reports are produced on a weekly basis and data are available since 2017.",
+    "Keywords": "Vaccination"
+  },
+  {
+    "Database/Dataset/System Name (English)": "COVID-19 Vaccine Web Monitoring",
+    "Acronym (English)": "CWM",
+    "Description (English)": "The objective of the COVID-19 Vaccine Web Monitoring Surveillance System is to learn more about misinformation, vaccine hesitancy, and to identify symptoms/adverse events following immunization (AEFIs) quickly as they are reported online. This surveillance system analyses social media (Twitter) data acquired from a COVID database as well as from search queries. The data contains tweet text, date created, links shared, like count, retweet count, and reply count. Tweets are identified as containing information about vaccines, symptoms, AEFIs, personal reports, and misinformation. Data are collected daily and reported internally to PHAC on a monthly basis since 2020.",
+    "Keywords": "Covid-19, Monkeypox, Vaccination, AEFI, Symptoms, Misinformation"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Paediatric Surveillance System",
+    "Acronym (English)": "CPSP",
+    "Description (English)": "The Canadian Paediatric Surveillance Program (CPSP), a joint project of the Public Health Agency of Canada  and the Canadian Paediatric Society, contributes to the improvement of the health of children and youth in Canada by national surveillance and research into childhood disorders that are high in disability, morbidity and economic costs to society, despite their low frequency.",
+    "Keywords": "Children, Infants, Pediatric Health, Rare And Emerging Pediatric Diseases/Conditions"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Cancer in Young People in Canada",
+    "Acronym (English)": "CYP-C",
+    "Description (English)": "Formerly known as the Canadian Childhood Cancer Surveillance and Control Program, The cancer in Young People in canada is a collaborative effort between the C17 Council, the Public Health Agency of Canda (PHAC) and the Canadian Partnership Against Cancer (CPAC). The purpose of CYP-C is to contribute to the control of cancer in children and adolescents in Canada by collaborating in the collection, analysis, interpretation and dissemination of Canadian population based surveillance data. This population-based study is carried out at the 17 Canadian pediatric hematolgy/oncology centres. Data is collected on diagnosis, treatment and short-term (5year) outcome of children and adolescents less than 19 years of age from 2001 to present.",
+    "Keywords": "Cancer"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Pan Territorial Data Project",
+    "Acronym (English)": "PTDP",
+    "Description (English)": "Surveillance of territorial child welfare indicators using data from territorial social services case management information systems.",
+    "Keywords": "Pan-Territorial"
+  },
+  {
+    "Database/Dataset/System Name (English)": "National Enteric Surveillance Program",
+    "Acronym (English)": "NESP",
+    "Description (English)": "The national incidence of foodborne pathogens is actively collected and reported by the National Enteric Surveillance Program (NESP). The NESP is designed to provide timely analysis and reporting of laboratory confirmed enteric disease cases in Canada. This includes major enteric bacterial pathogens such as Salmonella, Campylobacter, Shigella, Vibrio, Verotoxigenic E. Coli, Yersinia; intestinal parasitic organisms such as Giardia, Cryptosporidium, Entamoeba and Cyclospora, and enteric viruses such as Norovirus and Rotavirus.",
+    "Keywords": "Food and Water Safety"
+  },
+  {
+    "Database/Dataset/System Name (English)": "FoodNet Canada",
+    "Acronym (English)": "FNC",
+    "Description (English)": "FoodNet Canada is a multi-partner initiative facilitated by the Public Health Agency of Canada. It supports activities that will reduce the burden of enteric disease through comprehensive sentinel site surveillance implemented through local public health units and provincial public health laboratories. FoodNet Canada's work focuses on the necessity of collaboration among jurisdictions and of integration of efforts, new communication networks, rigorous systematization, and involvement of local public health units to inform policy at the local, regional and national levels. \n\nThe FoodNet Canada surveillance framework supports the following:\n�strengthening the public health infrastructure;\n�more effective collaboration among all levels of public health organizations and with participating communities; and\n�improving disease surveillance by using better source attribution methodology, which provides for more reliable assessment of risks posed by enteric pathogens to Canadian communities. \n",
+    "Keywords": "Enteric Disease, Food and Water Safety"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Enhanced Listeriosis Surveillance Program",
+    "Acronym (English)": "ELS",
+    "Description (English)": "The Enhanced Listeriosis Surveillance program provides timely case level information of confirmed invasive listeriosis cases in Canada, collected via a national standardized questionnaire. The purpose of this data collection is to inform cluster/outbreak investigations as well as national surveillance and overall public health policy.",
+    "Keywords": "Listeriosis"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Pan-Canadian Health Inequalities Reporting Initiative",
+    "Acronym (English)": "HIRI",
+    "Description (English)": "The Pan-Canadian Health Inequalities Reporting Initiative (HIRI) provides ongoing measurement, monitoring, and reporting of health inequalities in Canada. HIRI informs program and policy decisions to improve health equity, and seeks to improve overall public health capacity to monitor and prevent health inequities in Canada. HIRI identifies where inequalities in health outcomes and determinants exist between subgroups of Canadians at the national and provincial/territorial level, and the magnitude of these inequalities. HIRI is led by PHAC in collaboration with the Pan-Canadian Public Health Network, Statistics Canada, the Canadian Institute for Health Information, the First Nations Information Governance Centre, and other data partners. Data are collected every 3-5 years and are available since 2017 on the Health Inequalities Data Tool. Data are disseminated regularly (e.g., annually) via technical reports and other knowledge mobilization products such as infographics.",
+    "Keywords": "Health Inequalities, Health Equity, Social Determinants of Health, Relative Inequities, Absolute Inequities, Population Impact Measures of Inequities"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Market Intelligence Services Report - IATA",
+    "Acronym (English)": "MISR",
+    "Description (English)": "This report provides PHAC with monthly Global Traffic Estimates. The Market Intelligence Services report is one of the many product developed by the International Air Transport Association (IATA) Business Intelligence Services, a team of industry experts that brings together traffic, schedule, financial statistics, economic analysis, market research and a variety of consultancy services.",
+    "Keywords": "Air Travel, Origin, Destination"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Mental Health and Access to Care Survey",
+    "Acronym (English)": "MHACS",
+    "Description (English)": "The Mental Health and Access to Care Survey (MHACS) collects information about the mental health status of Canadians, and their access to and need for services and supports. Data collected through this survey is intended to support providers to fill data gaps in understanding mental health. This survey also intends to assess the impact of the COVID-19 pandemic on population health as well as evaluate changes in patterns of mental health, service use and functioning in the last ten years.",
+    "Keywords": "Covid-19, Mental Health, Mental Illness"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Impacts of COVID-19 on Health Care Workers � Infection Prevention and Control",
+    "Acronym (English)": "ICHCWIPC",
+    "Description (English)": "The data collection series Crowdsourcing: Impacts of COVID-19 on Canadians was designed to assess the\nquality and viability of a more timely collection model using willing participants and web-only collection. The Crowdsourcing: Impacts of COVID-19 on Health Care Workers � Infection Prevention and Control applies similar methods to this series. The overall goal of this crowdsourcing initiative is to invite all members of the Canadian population who are health care workers and those working in a health care setting to participate in a data collection exercise on a voluntary basis to understand the impact of COVID-19 on Canadian health care workers, with particular focus on access to personal protective equipment (PPE) and infection prevention and control (IPC) measures in the workplace. Data on job type and setting, training and information on PPE and IPC practices and protocols, use and access to PPE, personal health, and demographics was also collected. This type of approach to collecting data is\ncompletely non-probabilistic and does not involve a random selection of respondents like other traditional Statistics Canada surveys. Therefore, results cannot be used to draw inference on all people in Canada working in a health care setting",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Health Measures Survey",
+    "Acronym (English)": "CHMS",
+    "Description (English)": "The Canadian Health Measures Survey (CHMS) is a comprehensive, direct health measures survey developed to address important data gaps and limitations in existing health information. It is conducted by Statistics Canada in partnership with Health Canada (HC) and the Public Health Agency of Canada (PHAC). The results will provide comprehensive health information to advance health surveillance and research in Canada. The Canadian Health Measure Survey (CHMS) is divided in biennial collection cycles. Eight cycles are currently planned.",
+    "Keywords": "Blood, Health Promotion, Health, Health Survey"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Wastewater Genomics Unit (National Wastewater Surveillance Program)",
+    "Acronym (English)": "WWG",
+    "Description (English)": "Whole genome sequencing based surveillance of SARS-CoV-2, including the monitoring of specific variants.",
+    "Keywords": "Sequencing, Variants, Wastewater, SARS-CoV-2"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Tobacco, Alcohol and Drugs Survey",
+    "Acronym (English)": "CTADS",
+    "Description (English)": "The Canadian Tobacco, Alcohol and Drugs Survey (CTADS) was a general population survey of tobacco, alcohol and drug use among Canadians aged 15 years and older. The CTADS was conducted biennially by Statistics Canada on behalf of Health Canada from 2013 to 2017. At the time, this was the only Statistics Canada survey that met Health Canada�s need for continuous coverage in time, rapid delivery of data, and sufficient detail of the most at-risk populations, namely 15 to 24 year olds. In 2019, CTADS was replaced by two surveys: Canadian Alcohol and Drugs Survey (CADS) and Canadian Tobacco and Nicotine Survey (CTNS).",
+    "Keywords": "Alcohol, Drugs, Cigarettes, Alcohol Use, Youth, Smoking"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Alcohol and Drugs Survey",
+    "Acronym (English)": "CADS",
+    "Description (English)": "The CADS is the only Statistics Canada survey that meets Health Canada�s need for continuous and\ndetailed information on drug consumption and drinking prevalence by province, sex or age group, for age groups 15 to 19, 20 to 24 and 25 and over.",
+    "Keywords": "Alcohol, Drugs, Alcohol Use, Cannabis, Cannabis Use, Drug Use"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Canadian Tobacco and Nicotine Survey",
+    "Acronym (English)": "CTNS",
+    "Description (English)": "The Canadian Tobacco and Nicotine Survey (CTNS) 2019 measures the prevalence of cigarette smoking, vaping, alcohol and cannabis use among Canadians aged 15 years and older. CTNS is conducted by Statistics Canada on behalf of Health Canada.",
+    "Keywords": "Cannabis, Cannabis Use, Vaping, Tobacco Use, Alcohol Use, Smoking, Tobacco"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Framework for Integrated Resources Management Services",
+    "Acronym (English)": "FIRMS",
+    "Description (English)": "The database for the departmental financial and material management system SAP.  The data is based on financial transactions (e.g. payments to vendors, receivables from customers, etc.) and material transactions (e.g. assets, inventory, etc.) that is entered by departmental employees.",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Covid-19 Compendium of Lessons Learned Reports Database",
+    "Acronym (English)": "COLLRD",
+    "Description (English)": "This database contains publicly accessible COVID-19 lessons learned reports with observations that have been extracted and catalogued according to various themes based on emergency preparedness. For more information, please visit our GCcollab page: https://gccollab.ca/blog/view/16996407/covid-19-compendium-of-lessons-learned-reports-relational-database-covid-19-compendium-des-rapports-sur-les-enseignements-tir-s-base-de-donn-es-relationnelle",
+    "Keywords": "Covid-19, SARS-CoV-2, Pandemic"
+  },
+  {
+    "Database/Dataset/System Name (English)": "The National Microbiology Laboratory MALDI-TOF Spectral Libraries",
+    "Acronym (English)": "NMSL",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Collection of Epidemiologically Derived Associations with Resistance Database",
+    "Acronym (English)": "CEDAR",
+    "Description (English)": "",
+    "Keywords": "AMR"
+  },
+  {
+    "Database/Dataset/System Name (English)": "CBSA Traveler Volumes",
+    "Acronym (English)": "NA",
+    "Description (English)": "The Canada Border Services Agency (CBSA) provides PHAC with a weekly copy of traveler volume data. Traveller Volume Data is used by multiple program areas within PHAC to estimate importation risk of infectious diseases, by country and by port of entry. The information is also used in combination with other data sets to help inform post-border enforcement actions and reports (e.g. quarantine measures).",
+    "Keywords": "Infectious Disease, Traveler Data"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Population Estimates by Neighbourhood Income Quintile",
+    "Acronym (English)": "NA",
+    "Description (English)": "This dataset from Statistics Canada summarizes the Canadian population by both national-based and area-based neighbourhood before-tax income quintile for years 1991 to 2001. This data is from the PCCF+ and includes the following variables: Geography, Year, Sex/Gender, Age, Method (National or Neighbourhood-based Income Quintile), Quintile, and Population.",
+    "Keywords": "Social Determinants of Health, Census Data"
+  },
+  {
+    "Database/Dataset/System Name (English)": "Mpox Surveillance System",
+    "Acronym (English)": "Not Available",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Sentinel Primary Care Surveillance for AMR and AMU",
+    "Acronym (English)": "Not Available",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Surveillance of Human Antimicrobial Use",
+    "Acronym (English)": "SHAMU",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Wastewater Surveillance for Antibiotics",
+    "Acronym (English)": "Not Available",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Tick-Borne Pathogens Surveillance System",
+    "Acronym (English)": "Not Available",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Mosquito-Borne Pathogens Surveillance System",
+    "Acronym (English)": "Not available",
+    "Description (English)": "",
+    "Keywords": ""
+  },
+  {
+    "Database/Dataset/System Name (English)": "Surveillance Program for Rapid Identification and Tracking of Infectious Diseases in Kids",
+    "Acronym (English)": "SPRINT-kids",
+    "Description (English)": "",
+    "Keywords": ""
+  }
+];
+
+    $(document).ready(function () {
+        $('#catalogueTable').DataTable({
+    data: data,
+    columns: [
+        { data: "Database/Dataset/System Name (English)" }, 
+        { data: "Acronym (English)" },
+        { data: "Description (English)" },
+        { data: "Keywords" }
+    ]
+});
+    });
+</script>
+
+
+    <!-- Footer Web component code (Angular, Vue) -->
+    <gcds-footer display="full" contextual-heading="Contextual navigation"
+        contextual-links='{ "About the PHAC Data Catalogue": "#" }'>
+    </gcds-footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
