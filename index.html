@@ -48,8 +48,7 @@
         <main id="mc" class="general-layout">
 
             <section>
-                <article
-                    class="h1-dark text-light">
+                <article class="h1-dark text-light">
                     <h1 class="mb-400">
                         Data Catalogue Viewer
                     </h1>
@@ -65,244 +64,44 @@
 
                     <div class="toggle-columns">
                         Toggle column:
-                        <a class="toggle-vis visible-column" data-column="0">Dataset</a> - <a
-                            class="toggle-vis visible-column" data-column="1">Acronym
-                            (English)</a> - <a class="toggle-vis" data-column="2">Objective(s) (English)</a> - <a
-                            class="toggle-vis visible-column" data-column="3">Description (English)</a> - <a
-                            class="toggle-vis" data-column="4">Open government
-                            status</a> - <a class="toggle-vis" data-column="5">Frequency of Data Collection</a> - <a
-                            class="toggle-vis" data-column="6">Geographical Coverage</a> - <a class="toggle-vis"
-                            data-column="7">Data Quality Checks or Assessments</a> - <a class="toggle-vis"
-                            data-column="8">Data
-                            is
-                            Accessible to </a> - <a class="toggle-vis visible-column" data-column="9">Keywords</a> - <a
-                            class="toggle-vis" data-column="10">Years/Cycle Available</a> -
-                        <a class="toggle-vis" data-column="11">Availability of Indigenous Variables/Data</a> - <a
-                            class="toggle-vis" data-column="12">Availability of Sex and Gender-based Analysis Plus
-                            (SGBA+)
-                            Data</a> -
-                        <a class="toggle-vis" data-column="13">Access Requirement</a> - <a class="toggle-vis"
-                            data-column="14">Programming Language</a> - <a class="toggle-vis" data-column="15">Data
-                            sources</a>
+                        <span><a class="toggle-vis visible-column" data-column="0">Dataset</a></span><span><a class="toggle-vis visible-column" data-column="1">Acronym</a></span><span><a class="toggle-vis visible-column" data-column="2">Description</a></span><span><a class="toggle-vis visible-column" data-column="3">Keywords</a></span><span><a class="toggle-vis" data-column="4">Objectives</a></span><span><a class="toggle-vis" data-column="5">Coverage</a></span><span><a class="toggle-vis" data-column="6">Quality Checks</a></span><span><a class="toggle-vis" data-column="7">Frequency</a></span><span><a class="toggle-vis" data-column="8">Sources</a></span><span><a class="toggle-vis" data-column="9">Open Status</a></span><span><a class="toggle-vis" data-column="10">Programming Language</a></span><span><a class="toggle-vis" data-column="11">Years Available</a></span><span><a class="toggle-vis" data-column="12">Indigenous Data</a></span><span><a class="toggle-vis" data-column="13">SGBA+ Data</a></span><span><a class="toggle-vis" data-column="14">Access</a></span><span><a class="toggle-vis" data-column="15">Accessible To</a></span><span><a class="toggle-vis" data-column="16">Audience</a></span><span><a class="toggle-vis" data-column="17">Category</a></span><span><a class="toggle-vis" data-column="18">Last Updated</a></span>
                     </div>
                 </article>
 
                 <article class="py-450">
-                <table id="catalogueTable" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Dataset</th>
-                            <th>Acronym (English)</th>
-                            <th>Objective(s) (English)</th>
-                            <th style="width:100%">Description (English)</th>
-                            <th>Open government status</th>
-                            <th>Frequency of Data Collection</th>
-                            <th>Geographical Coverage</th>
-                            <th>Data Quality Checks or Assessments</th>
-                            <th>Data is Accessible to</th>
-                            <th>Keywords</th>
-                            <th>Year or Cycle Available</th>
-                            <th>Availability of Indigenous Variables or Data</th>
-                            <th>Availability of Sex and Gender-based Analysis Plus (SGBA+) Data</th>
-                            <th>Access Requirement</th>
-                            <th>Programming Language</th>
-                            <th>Data sources</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </article>
+                    <table id="catalogueTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Dataset</th>
+                                <th>Acronym</th>
+                                <th>Description</th>
+                                <th>Keywords</th>
+                                <th>Objectives</th>
+                                <th>Coverage</th>
+                                <th>Quality Checks</th>
+                                <th>Frequency</th>
+                                <th>Sources</th>
+                                <th>Open Status</th>
+                                <th>Programming Language</th>
+                                <th>Years Available</th>
+                                <th>Indigenous Data</th>
+                                <th>SGBA+ Data</th>
+                                <th>Access</th>
+                                <th>Accessible To</th>
+                                <th>Audience</th>
+                                <th>Category</th>
+                                <th>Last Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </article>
             </section>
         </main>
     </div>
-    <script>
 
-        const data = [
-            {
-                "Dataset": "Hear Me Hear You",
-                "Acronym (English)": "HMHY",
-                "Objective(s) (English)": "Amplify diverse voices:\nCreate a platform where Canadians from all backgrounds feel heard and respected regarding their health experiences and priorities.\nIdentify public health needs: Uncover gaps and disparities in health services, access to resources, and the public's understanding of key health issues.\nFoster trust and collaboration: Build bridges between public health officials, policymakers, and communities to address concerns and develop more effective health initiatives.\nEncourage civic engagement: Empower Canadians to become active participants in shaping the future of public health.\nFacilitate data-driven decisions: Generate qualitative insights to inform public health interventions, funding allocation, and research priorities.",
-                "Description (English)": "The Hear Me Hear You program embraces a multi-faceted approach to engage Canadians in meaningful conversation. The program offers various channels for participation:\n\n    Community roundtables: Facilitated discussions in diverse communities across the country, allowing for in-depth conversations on local health concerns.\n    Online listening sessions: Webinars and video conferencing tools enable remote participation, ensuring accessibility for those in rural or isolated areas.\n    Social media campaigns: The program utilizes social media platforms to solicit short-form opinions, raise awareness, and foster a broader online dialogue.\n    Creative expression submissions: Canadians are encouraged to express their views through artwork, poetry, short stories, or audio recordings, providing alternative avenues beyond traditional surveys or focus groups.\n    Partnerships: Collaborations with existing community organizations, healthcare providers, and advocacy groups expand reach and amplify marginalized voices.\n\nThe collected data is carefully analyzed using both qualitative and quantitative methods. The Hear Me Hear You program prioritizes transparency by publishing summary reports and sharing key insights with the public. Public health officials and policymakers are invited to engage with these findings, fostering open dialogue and promoting health initiatives that truly reflect community needs.",
-                "Open government status": "",
-                "Frequency of Data Collection": "",
-                "Geographical Coverage": "National",
-                "Data Quality Checks or Assessments": "Yes",
-                "Data is Accessible to": "PHAC employees, casual and students with a rationale for access",
-                "Keywords": "Covid-19, Doses Administered, Vaccination",
-                "Year or Cycle Available": "",
-                "Availability of Indigenous Variables or Data": "",
-                "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data": "Age, Sex",
-                "Access Requirement": "Approved rationale",
-                "Programming Language": "SAS, R, SQL, Other",
-                "Data sources": "CSC, CAF, Province/Provinces, Territory/Territories, Other"
-            },
-            {
-                "Dataset": "SunSmart Canada: National Sun Safety Awareness Program",
-                "Acronym (English)": "SSCSSAP",
-                "Objective(s) (English)": "Vivamus a fermentum orci. Nullam ac lorem vitae augue vehicula dapibus. In aliquam tortor tempus ex faucibus ultricies. Cras non quam vitae diam egestas accumsan.:\n- Etiam efficitur blandit tortor \n-Praesent sagittis est vitae neque",
-                "Description (English)": "Suspendisse eget ultricies tellus. Etiam pharetra et urna eget tempus. Vivamus consequat massa sed tincidunt condimentum. Morbi aliquet egestas diam, vitae consequat massa eleifend non. Pellentesque faucibus dui sit amet erat iaculis pulvinar. Phasellus hendrerit nisi non maximus dictum. Praesent imperdiet massa massa, sed finibus mauris lobortis nec. Etiam velit erat, imperdiet id massa id, tempor suscipit metus. Maecenas euismod euismod felis sed sodales. In mattis orci ac congue fermentum. Morbi eu pharetra ligula. ",
-                "Open government status": "",
-                "Frequency of Data Collection": "Weekly",
-                "Geographical Coverage": "National",
-                "Data Quality Checks or Assessments": "Yes",
-                "Data is Accessible to": "PHAC employees, casual and students with a rationale for access",
-                "Keywords": "Monkeypox, Vaccination",
-                "Year or Cycle Available": "2022",
-                "Availability of Indigenous Variables or Data": "",
-                "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data": "Age, Sex",
-                "Access Requirement": "Approved rationale",
-                "Programming Language": "SAS, R, Other",
-                "Data sources": "Provinces and Territories (some or all)"
-            },
-            {
-                "Dataset": "The Great Trail Trek: National Park Walking Program for Children",
-                "Acronym (English)": "GTTWPC",
-                "Objective(s) (English)": "•  Promote physical activity: Encourage children to walk regularly and build a foundation for a healthy lifestyle.\n•  Spark a love for nature: Foster appreciation for Canada's diverse national parks and the importance of conservation.\n•  Connect with history and culture: Explore the unique stories and traditions associated with different park locations.\n•  Embrace exploration and discovery: Ignite a passion for adventure and learning through outdoor experiences.\n•  Build community: Create a sense of camaraderie and shared achievement among participating children.",
-                "Description (English)": "The Great Trail Trek utilizes the iconic Trans Canada Trail, a vast network of walking paths spanning the country, as its virtual map. Children of all ages can register for the program and receive a personalized trekking booklet.  This engaging booklet serves as a logbook for recording their walking adventures.  It also features fun facts about different national parks, interactive challenges, and collectible stickers earned for reaching milestones.\n\nThe program leverages a user-friendly website where children can track their progress on an interactive map. Parents and educators can utilize the website to access additional resources like downloadable activity sheets, virtual park tours, and educational content about the flora, fauna, and cultural significance of various national park locations.\n\nThroughout the program, exciting events and challenges are organized. These might involve themed virtual hikes with park rangers, photo contests showcasing local wildlife, or creating artwork inspired by the natural world. The Great Trail Trek motivates children to embrace an active lifestyle while fostering a lifelong appreciation for Canada's breathtaking national parks.",
-                "Open government status": "",
-                "Frequency of Data Collection": "Bi-Weekly",
-                "Geographical Coverage": "National",
-                "Data Quality Checks or Assessments": "Yes",
-                "Data is Accessible to": "Only a specific Centre/program",
-                "Keywords": "Vaccination",
-                "Year or Cycle Available": "1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022",
-                "Availability of Indigenous Variables or Data": "First Nations, Inuit, Métis",
-                "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data": "Age, Sex, Race",
-                "Access Requirement": "Data Access is restricted",
-                "Programming Language": "SAS, R",
-                "Data sources": "Canadian Armed Forces, Provinces and Territories (some or all), Other"
-            },
-            {
-                "Dataset": "Maple Syrup Saves Lives: National Sticky Breakfast Awareness Initiative",
-                "Acronym (English)": "MSSLANSAI",
-                "Objective(s) (English)": "Promote a balanced and energizing breakfast: Motivate Canadians to ditch the sugary cereals and embrace the power of a sticky, maple-infused breakfast.\nSupport Canadian maple syrup producers: Celebrate this iconic Canadian product and boost the local economy (one sticky finger at a time).\nUnleash the inner lumberjack (or lumberjane): Fuel Canadians with the energy they need to conquer their day, whether it's battling a towering stack of reports or wrestling a mischievous moose.\nEmbrace the fun (and mess!) of breakfast: Because sometimes, the best way to start your day is with a little delightful chaos and a healthy dose of syrup-drizzled goodness",
-                "Description (English)": "MSSLANSAI utilizes a multi-pronged approach, guaranteed to get Canadians thinking (and drooling) about maple syrup.\n\n    Behold! The Syrup Sommelier: Our team of certified \"Syrup Sommeliers\" (yes, it's a real thing... maybe) travel the country hosting educational workshops. These workshops explore different maple syrup grades, proper pouring techniques (crucial for avoiding sticky disasters), and, of course, delicious maple-infused breakfast recipes (because learning is hungry work!).\n    The Great Canadian Syrup Spill: Don't worry, it's not a sticky national emergency! This lighthearted competition encourages families to create fun and creative syrup-themed breakfasts. Think pancake art masterpieces, syrup obstacle courses for your cereal, or even maple syrup origami (we don't judge... much).\n    Sticky Situation Hotline: Feeling overwhelmed by a breakfast rut or a particularly stubborn syrup stain? Our hotline connects you with friendly \"Syrup Saviours\" who offer breakfast inspiration and helpful cleaning tips (because sticky situations are inevitable).",
-                "Open government status": "",
-                "Frequency of Data Collection": "",
-                "Geographical Coverage": "Only Provinces",
-                "Data Quality Checks or Assessments": "No",
-                "Data is Accessible to": "Only specific individuals",
-                "Keywords": "Covid-19, Vaccination, Black Communities, Immunization",
-                "Year or Cycle Available": "",
-                "Availability of Indigenous Variables or Data": "",
-                "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data": "Age, Sex, Gender, Sexual orientation, Language, Ethnicity, Religion, Education, Income, Employment, Geographic Location",
-                "Access Requirement": "Signed Data User Agreement",
-                "Programming Language": "SAS, Microsoft Excel, Power BI, Tableau, Other",
-                "Data sources": "A contractor was hired by PHAC to collect the data, Other"
-            },
-            {
-                "Dataset": "Sorry to Bother You: National \"Eh\" Counting Campaign for Vocal Health",
-                "Acronym (English)": "STBY: NECCFVH",
-                "Objective(s) (English)": "The four main and super serious goals of this program are to: •  Promote vocal health awareness: Educate Canadians about the impact of overuse and improper pronunciation on vocal cords.\n•  Reduce \"eh\" strain: Encourage alternative interjections to lessen the burden on our national vocal tic.\nStrengthen \"sorry\" muscles: Because sometimes, a heartfelt \"sorry\" is truly necessary, and we want those apologies to be crystal clear.\nEmbrace the fun of Canadian communication: Explore the rich tapestry of Canadian slang and expressions beyond the ubiquitous \"eh.\"",
-                "Description (English)": "TBY: NECCFVH utilizes humor and interactive elements to engage Canadians in vocal health awareness.\n\n - Developed by GC Strategies, the \"Eh\" O Meter App is a lighthearted app tracks your daily \"eh\" usage. It offers gentle nudges when your \"eh\" count goes overboard, suggesting alternative interjections like \"hey,\" \"right?\" or the ever-reliable \"toonie for your thoughts?\" (for those truly contemplative moments).\n- The Great Canadian \"Eh\"lympics: This nationwide competition gets creative! Communities participate in challenges like silent charades using only facial expressions, storytelling contests where \"eh\" is strictly forbidden, and even synchronized \"sorry\" routines.",
-                "Open government status": "",
-                "Frequency of Data Collection": "",
-                "Geographical Coverage": "",
-                "Data Quality Checks or Assessments": "Yes",
-                "Data is Accessible to": "PHAC employees, casual and students with a rationale for access",
-                "Keywords": "Covid-19, Vaccination, Red River Métis",
-                "Year or Cycle Available": "",
-                "Availability of Indigenous Variables or Data": "Métis",
-                "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data": "Age, Sex",
-                "Access Requirement": "Approved rationale, Other",
-                "Programming Language": "Not applicable",
-                "Data sources": "Manitoba Métis Federation Inc., Other"
-            },
-            {
-                "Dataset": "Moose Crossing Mayhem: National Wildlife Collision Avoidance Program",
-                "Acronym (English)": "MCM: NWCAP",
-                "Objective(s) (English)": "Objectives:\n\n  -  Reduce wildlife collisions: Minimize the number of accidents involving moose and other wildlife on Canadian roads.\n  -  Protect wildlife populations: Ensure the safety of moose and other animals by promoting responsible driving habits.\n  -  Raise awareness of wildlife corridors: Educate drivers about high-risk areas for encountering wildlife and encourage responsible travel through these zones.\n  -  Develop innovative solutions: Explore and implement technologies like animal detection systems and wildlife crossing infrastructure.",
-                "Description (English)": "Moose Crossing Mayhem tackles wildlife collisions with a fun and informative approach.\n\n    The \"Moose on the Loose\" App: This user-friendly app provides real-time moose sighting reports submitted by fellow drivers. It also highlights high-risk areas and offers alternative routes when possible.\n    \"Mayhem in the Classroom\": Educational workshops for young Canadians foster respect for wildlife and teach safe driving habits around animals. Think moose crossing simulations, wildlife identification games, and even creating \"moose crossing\" warning signs with creative slogans.\n    \"Operation: Reflector Rodeo\": Partnering with wildlife conservation groups, MCM: NWCAP organizes roadside events to install reflective markers along high-risk zones. These markers improve nighttime visibility for both drivers and moose, reducing the chances of a surprise encounter.\n    The \"Moose on the Move\" Public Service Announcement Series: Humorous and educational PSAs featuring lovable (yet accident-prone) cartoon moose characters highlight the importance of defensive driving and awareness around wildlife corridors.",
-                "Open government status": "",
-                "Frequency of Data Collection": "Quarterly",
-                "Geographical Coverage": "National",
-                "Data Quality Checks or Assessments": "Yes",
-                "Data is Accessible to": "Only a specific Centre/program",
-                "Keywords": "Sexually Transmitted Infections, STBBI, Infectious Syphilis, STI, Congenital Syphilis",
-                "Year or Cycle Available": "2018, 2019, 2020, 2021, 2022, 2023",
-                "Availability of Indigenous Variables or Data": "No",
-                "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data": "Age, Sex, Gender, Sexual orientation, Geographic Location",
-                "Access Requirement": "Approved rationale",
-                "Programming Language": "Microsoft Excel, R",
-                "Data sources": "ISC - FNIHB, Provinces and Territories (some or all), Other"
-            },
-            {
-                "Dataset": "COVID-19 More Like Shmovid-19: Global Pandemic Preparedness",
-                "Acronym (English)": "CMLS:GPP",
-                "Objective(s) (English)": "Objectives:\n\n    Strengthen global surveillance: Enhance real-time monitoring systems to detect emerging viruses quickly and efficiently.\n    Invest in rapid response protocols: Develop streamlined processes for international cooperation in containing outbreaks at the source.\n    Accelerate vaccine and treatment development: Promote research and development of broad-spectrum vaccines and therapeutics that work against a wide range of coronaviruses.\n    Empower public health communication:\n\nFoster trust and transparency in public health messaging to encourage preventative measures and dispel misinformation.\nBuild global health infrastructure: Support developing countries in strengthening their public health systems, ensuring preparedness across the globe.",
-                "Description (English)": "The Viral Vanguard:\nThis global network of scientists, researchers, and public health officials collaborates on real-time virus surveillance, sharing data and expertise to identify potential threats early.\nOperation Outbreak Odyssey: A rapid deployment task force composed of medical professionals and epidemiologists is ready to mobilize at a moment's notice, containing outbreaks at their source and preventing widespread transmission.\nProject Panacea: Dedicated research institutions and pharmaceutical companies work together to develop broad-spectrum vaccines and antiviral treatments, ensuring rapid response capabilities for future pandemics.\nThe Truth Serum: A global communications hub combats misinformation surrounding pandemics, providing accurate and clear information to the public through trusted channels.\nBuilding Bridges, Not Borders: Virus Vanquishers provides resources and training to strengthen public health infrastructure in developing countries, promoting global preparedness and equity in healthcare access.",
-                "Open government status": "",
-                "Frequency of Data Collection": "Annually",
-                "Geographical Coverage": "National",
-                "Data Quality Checks or Assessments": "Yes",
-                "Data is Accessible to": "PHAC employees, casual and students with a rationale for access",
-                "Keywords": "Cancer, Adult Cancer",
-                "Year or Cycle Available": "1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019",
-                "Availability of Indigenous Variables or Data": "",
-                "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data": "Age, Sex",
-                "Access Requirement": "Approved rationale, Signed Data User Agreement",
-                "Programming Language": "SAS",
-                "Data sources": "Statistics Canada, Provinces and Territories (some or all), Statistics Canada"
-            }
-        ];
-
-
-        $(document).ready(function () {
-            // initializes the DataTables table
-            const table = $('#catalogueTable').DataTable({
-                data: data,
-                columns: [
-                    { data: "Dataset" },
-                    { data: "Acronym (English)" },
-                    { data: "Objective(s) (English)", visible: false },
-                    { data: "Description (English)" },
-                    { data: "Open government status", visible: false },
-                    { data: "Frequency of Data Collection", visible: false },
-                    { data: "Geographical Coverage", visible: false },
-                    { data: "Data Quality Checks or Assessments", visible: false },
-                    { data: "Data is Accessible to", visible: false },
-                    { data: "Keywords" },
-                    { data: "Year or Cycle Available", visible: false },
-                    { data: "Availability of Indigenous Variables or Data", visible: false },
-                    { data: "Availability of Sex and Gender-based Analysis Plus (SGBA+) Data", visible: false },
-                    { data: "Access Requirement", visible: false },
-                    { data: "Programming Language", visible: false },
-                    { data: "Data sources", visible: false }
-                ]
-            });
-
-            // toggle visibility logic
-            document.querySelectorAll('a.toggle-vis').forEach((el) => {
-                el.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    let columnIdx = e.target.getAttribute('data-column');
-                    let column = table.column(columnIdx);
-
-                    // Toggle the visibility
-                    column.visible(!column.visible());
-                    updateToggleLinkStyles(); // Update styles after toggle
-                });
-            });
-
-            function updateToggleLinkStyles() {
-                console.log("ifired")
-                $('.toggle-vis').each(function () {
-                    const columnIdx = $(this).data('column');
-                    const column = table.column(columnIdx);
-
-                    if (column.visible()) {
-                        $(this).addClass('visible-column');
-                    } else {
-                        $(this).removeClass('visible-column');
-                    }
-                });
-            }
-
-        });
-
-    </script>
+<script src="scripts.js"></script>
 
 
     <!-- Footer Web component code (Angular, Vue) -->

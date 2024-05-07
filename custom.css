@@ -11,6 +11,23 @@ a.toggle-vis:hover {
     padding: 1rem auto;
 }
 
+.toggle-columns span {
+  display: inline-block
+}
+
+.toggle-columns span:after {
+  content: "-";
+  display: inline-block;
+  padding: 0 1ch;
+  pointer-events:none;
+  user-select: none;
+}
+
+
+.toggle-columns a:last-child:after {
+  content:""
+}
+
 .content-wrapper {
     margin-top: -12px;
 }
