@@ -18,13 +18,13 @@ a.toggle-vis:hover {
 .toggle-columns span:after {
   content: "-";
   display: inline-block;
-  padding: 0 1ch;
+  padding: 0 .5ch;
   pointer-events:none;
   user-select: none;
 }
 
 
-.toggle-columns a:last-child:after {
+.toggle-columns span:last-child:after {
   content:""
 }
 
@@ -251,6 +251,14 @@ small {
 
 strong {
     font-weight: var(--gcds-font-weights-bold)
+}
+
+.highlight {
+  background-color: rgba(211, 8, 12, 0.5);
+}
+
+select[name="catalogueTable_length"] {
+  margin-right: .5ch;
 }
 
 /* the rest is ripped from the GCDS website's gcds-utility.min.css 
