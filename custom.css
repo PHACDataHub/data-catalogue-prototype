@@ -1,18 +1,26 @@
+
+@import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
+@import url(https://unpkg.com/font-awesome/css/font-awesome.min.css);
+
+
 /* Target the cells within the 'Hyperlinks' column */
 #catalogueTable td a {
   display: inline-block; /* Ensures the element takes up space */
-  max-width: 18ch;     /* Adjust this to your desired maximum width */
+  max-width: 18vw;     /* Adjust this to your desired maximum width */
   overflow: hidden;
   text-overflow: ellipsis; /* Adds "..." if the URL is truncated */
   white-space: nowrap;    /* Prevents the URL from wrapping to the next line */
-  color:red!important;
+  color: var(--gcds-link-default);
 }
 
 /* Optional: Style for the shortened URL */
 #catalogueTable td a::before {
-  content: "🔗";        /* Add a link icon after the truncated URL */
+  content: "\f0c1"; /* This is for the chain icon in FA 6+ */
+  font-family: "Font Awesome 6 Free", FontAwesome; 
+  color: var(--gcds-link-default);
   display:inline-block;
   user-select: none;
+  padding-right: 0.5ch;
   aria-hidden: true; /* Tell screen readers to ignore it */
 }
 
@@ -63,8 +71,6 @@ article {
     margin-block-end:var(--gcds-spacing-400)
   }
 
-@import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
-@import url(https://unpkg.com/font-awesome/css/font-awesome.min.css);
 
 .h1-dark {
     background-color: var(--gcds-color-blue-900)
@@ -279,6 +285,9 @@ select[name="catalogueTable_length"] {
   margin-right: .5ch;
 }
 
+:root {
+  --gcds-font-families-icons:"Font Awesome 6 Free",FontAwesome;
+}
 /* the rest is ripped from the GCDS website's gcds-utility.min.css 
 
 @import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
@@ -366,7 +375,6 @@ select[name="catalogueTable_length"] {
   --gcds-font-families-heading:"Lato",sans-serif;
   --gcds-font-families-body:"Noto Sans",sans-serif;
   --gcds-font-families-monospace:"Menlo",sans-serif;
-  --gcds-font-families-icons:"Font Awesome 6 Free",FontAwesome;
   --gcds-font-sizes-caption:1.1111111111111112rem;
   --gcds-font-sizes-caption-mobile:0.8888888888888888rem;
   --gcds-font-sizes-text:1.25rem;
