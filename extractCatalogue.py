@@ -71,14 +71,6 @@ def extractCatalogue(csv_filepath, extracted_json):
         else:
             return ""
 
-    # Helper function to extract the domain name from a URL
-    def extract_domain(url):
-        match = re.search(r"https?://([^/]+)", url)
-        if match:
-            return match.group(1)
-        else:
-            return ""
-
     # Clean hyperlinks and add descriptive text
     def clean_hyperlinks(link_str, dataset):
         if pd.isnull(link_str):
@@ -112,5 +104,5 @@ def extractCatalogue(csv_filepath, extracted_json):
 
 # file paths
 csv_filepath = "data-catalogue.csv"
-extracted_json = "data.json"  
+extracted_json = "output.json"  
 extractCatalogue(csv_filepath, extracted_json)
