@@ -26,7 +26,8 @@ const data = fetch('data.json')
                 { data: "Accessible To", visible: false },
                 { data: "Audience", visible: false },
                 { data: "Category", visible: false },
-                { data: "Last Updated", visible: false }
+                { data: "Last Updated", visible: false },
+                { data: "Hyperlinks", visible: false }
             ]
         });
         table.on('draw', function () {

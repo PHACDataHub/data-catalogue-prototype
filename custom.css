@@ -1,3 +1,21 @@
+/* Target the cells within the 'Hyperlinks' column */
+#catalogueTable td a {
+  display: inline-block; /* Ensures the element takes up space */
+  max-width: 18ch;     /* Adjust this to your desired maximum width */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." if the URL is truncated */
+  white-space: nowrap;    /* Prevents the URL from wrapping to the next line */
+  color:red!important;
+}
+
+/* Optional: Style for the shortened URL */
+#catalogueTable td a::before {
+  content: "🔗";        /* Add a link icon after the truncated URL */
+  display:inline-block;
+  user-select: none;
+  aria-hidden: true; /* Tell screen readers to ignore it */
+}
+
 a.toggle-vis:hover {
     cursor: pointer;
     text-decoration: underline;

@@ -2,16 +2,16 @@ import pandas as pd
 
 def extractCatalogue(csv_filepath, extracted_json):
     """
-    This python script is for updating the data catalogue.
-    Input a CSV of the data catalogue,
-    script pulls the relevant columns from that csv,
+    Pulls the relevant columns from the data catalogue, 
     changes their headers to something better, 
-    (to add) gets external links from the hyperlinks column
-    then saves as output.json, which can be used by the datatables page
+    then saves as output.json
     """
     
     # Read the CSV into a Pandas DataFrame
     df = pd.read_csv(csv_filepath)
+    
+    # Ensure that the column exists for all rows
+    df["Hyperlinks"] = df["Hyperlinks"].astype(str).fillna("")  # Fill empty cells
 
     # Columns to extract, these must be the exact name of the column you want to extract from the catalogue
     selected_cols = [
@@ -33,7 +33,8 @@ def extractCatalogue(csv_filepath, extracted_json):
         'Data is Accessible to ',
         'Intended Audience of Data Knowledge Translation Products and Publications',
         'General Purpose Category',
-        'When was the Open Government Portal last updated?'
+        'When was the Open Government Portal last updated?',
+        'Hyperlinks'
     ]
 
     # New, shorter headers
@@ -56,13 +57,30 @@ def extractCatalogue(csv_filepath, extracted_json):
         'Accessible To',
         'Audience',
         'Category',
-        'Last Updated'
+        'Last Updated',
+        'Hyperlinks'
     ]
 
+    # Nested hyperlink cleaning function
+    def clean_hyperlinks(link_str):
+        if pd.isnull(link_str):
+            return ""
+
+        # Split by both commas and newlines, strip whitespace, filter, and build tags
+        links = [
+            f'<a href="{link}" target="_blank">{link}</a>'
+            for link in link_str.replace("\n", ",").split(",")  # Replace newlines with commas
+            if "https://" in link.strip().lower()
+        ]
+
+        return ", ".join(links) if links else ""
+
+    # Apply hyperlink cleaning function directly on original DataFrame
+    df["Hyperlinks"] = df["Hyperlinks"].apply(clean_hyperlinks)
 
 
     # filter columns and rename headers 
-    df_filtered = df[selected_cols] 
+    df_filtered = df[selected_cols]
     df_filtered.columns = new_headers
 
     # Convert to JSON
@@ -73,10 +91,8 @@ def extractCatalogue(csv_filepath, extracted_json):
     # Save as JSON
     with open(extracted_json, 'w') as f:
         f.write(json_data)
-    
-
 
 # file paths
 csv_filepath = "data-catalogue.csv"
-extracted_json = "output.json"
+extracted_json = "output.json"  
 extractCatalogue(csv_filepath, extracted_json)
