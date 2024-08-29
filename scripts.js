@@ -1,4 +1,5 @@
 //get the catalogue data from the JSON file
+console.log('attempting to load data')
 const data = fetch('data.json')
     .then(response => response.json())
     .then(data => {
@@ -25,7 +26,6 @@ const data = fetch('data.json')
                 { data: "Access", visible: false },
                 { data: "Accessible To", visible: false },
                 { data: "Audience", visible: false },
-                { data: "Category", visible: false },
                 { data: "Last Updated", visible: false },
                 { data: "Hyperlinks", visible: false }
             ]

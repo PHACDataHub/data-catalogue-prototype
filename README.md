@@ -33,7 +33,6 @@ This python script reads data-catalogue.csv and extracts the following columns o
 - Access Requirement
 - Data is Accessible to
 - Intended Audience of Data Knowledge Translation Products and Publications
-- General Purpose Category
 - When was the Open Government Portal last updated?
 - Hyperlinks
 

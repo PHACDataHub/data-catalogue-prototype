@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-def extractCatalogue(csv_filepath, extracted_json):
+def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
     """
     Pulls the relevant columns from the data catalogue, 
     changes their headers to something better, 
@@ -34,7 +34,6 @@ def extractCatalogue(csv_filepath, extracted_json):
         'Access Requirement',
         'Data is Accessible to ',
         'Intended Audience of Data Knowledge Translation Products and Publications',
-        'General Purpose Category',
         'When was the Open Government Portal last updated?',
         'Hyperlinks'
     ]
@@ -58,7 +57,6 @@ def extractCatalogue(csv_filepath, extracted_json):
         'Access',
         'Accessible To',
         'Audience',
-        'Category',
         'Last Updated',
         'Hyperlinks'
     ]
@@ -93,6 +91,7 @@ def extractCatalogue(csv_filepath, extracted_json):
     # Apply hyperlink cleaning function with dataset name to the FILTERED data
     df_filtered.loc[:, "Hyperlinks"] = df_filtered.apply(lambda row: clean_hyperlinks(row['Hyperlinks'], row['Dataset']), axis=1)
 
+
     # Convert to JSON
     json_data = df_filtered.to_json(orient='records')
 
@@ -102,7 +101,12 @@ def extractCatalogue(csv_filepath, extracted_json):
     with open(extracted_json, 'w') as f:
         f.write(json_data)
 
+    # Save as CSV
+    df_filtered.to_csv(extracted_csv, index=False)  # index=False to avoid adding an index column
+    print(f"Writing extracted CSV data to {extracted_csv}")
+
 # file paths
 csv_filepath = "data-catalogue.csv"
 extracted_json = "output.json"  
-extractCatalogue(csv_filepath, extracted_json)
+extracted_csv = "output.csv"  # Path for the CSV file
+extractCatalogue(csv_filepath, extracted_json, extracted_csv) 
