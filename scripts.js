@@ -13,23 +13,27 @@ const data = fetch('data.json')
                 { data: "Acronym" },
                 { data: "Description" },
                 { data: "Keywords" },
-                { data: "Objectives", visible: false },
-                { data: "Coverage", visible: false },
-                { data: "Quality Checks", visible: false },
-                { data: "Frequency", visible: false },
-                { data: "Sources", visible: false },
-                { data: "Open Status", visible: false },
-                { data: "Programming Language", visible: false },
-                { data: "Years Available", visible: false },
-                { data: "Indigenous Data", visible: false },
-                { data: "SGBA+ Data", visible: false },
-                { data: "Access", visible: false },
-                { data: "Accessible To", visible: false },
-                { data: "Audience", visible: false },
-                { data: "Last Updated", visible: false },
-                { data: "Hyperlinks", visible: false }
+                { data: "Objectives" }, 
+                { data: "Coverage" }, 
+                { data: "Quality Checks" }, 
+                { data: "Frequency" },
+                { data: "Sources" },
+                { data: "Open Status" },
+                { data: "Programming Language" },
+                { data: "Years Available" },
+                { data: "Indigenous Data" },
+                { data: "SGBA+ Data" },
+                { data: "Access" },
+                { data: "Accessible To" },
+                { data: "Audience" },
+                { data: "Last Updated" },
+                { data: "Hyperlinks" } 
             ]
         });
+        
+        // Hide the columns you want to hide initially
+        table.columns([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]).visible(false);
+        
 
         // Make table cells focusable AFTER DataTables initialization
         $('#catalogueTable tbody td').attr('tabindex', 0);
@@ -62,9 +66,6 @@ const data = fetch('data.json')
 
                 // Additional Trigger for Search Highlighting
                 table.search(table.search()).draw();
-
-                // Make table cells focusable AFTER DataTables initialization
-                $('#catalogueTable tbody td').attr('tabindex', 0);
             });
         });
 
