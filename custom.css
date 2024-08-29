@@ -37,11 +37,12 @@ a.toggle-vis:hover {
     padding: 1rem auto;
 }
 
-.toggle-columns span {
-  display: inline-block
+.toggle-columns button {
+  display: inline-block;
+  background-color: transparent !important;
 }
 
-.toggle-columns span:after {
+.toggle-columns button:after {
   content: "-";
   display: inline-block;
   padding: 0 .5ch;
@@ -50,7 +51,7 @@ a.toggle-vis:hover {
 }
 
 
-.toggle-columns span:last-child:after {
+.toggle-columns button:last-child:after {
   content:""
 }
 

@@ -1,5 +1,4 @@
 //get the catalogue data from the JSON file
-console.log('attempting to load data')
 const data = fetch('data.json')
     .then(response => response.json())
     .then(data => {
@@ -8,6 +7,7 @@ const data = fetch('data.json')
         // initializes the DataTables table
         const table = $('#catalogueTable').DataTable({
             data: data,
+            scrollX: true,
             columns: [
                 { data: "Dataset" },
                 { data: "Acronym" },
@@ -30,13 +30,17 @@ const data = fetch('data.json')
                 { data: "Hyperlinks", visible: false }
             ]
         });
+
+        // Make table cells focusable AFTER DataTables initialization
+        $('#catalogueTable tbody td').attr('tabindex', 0);
+
         table.on('draw', function () {
             var body = $(table.table().body());
 
             body.unhighlight();
 
-            if ( table.rows( { filter: 'applied' } ).data().length ) {
-                body.highlight( table.search() );
+            if (table.rows({ filter: 'applied' }).data().length) {
+                body.highlight(table.search());
             }
         });
 
@@ -50,30 +54,44 @@ const data = fetch('data.json')
 
                 // Toggle the visibility
                 column.visible(!column.visible());
+
+                // Update data-column attributes after toggle
+                updateDataColumnAttributes();
+
                 updateToggleLinkStyles(); // Update styles after toggle
 
                 // Additional Trigger for Search Highlighting
                 table.search(table.search()).draw();
+
+                // Make table cells focusable AFTER DataTables initialization
+                $('#catalogueTable tbody td').attr('tabindex', 0);
             });
         });
+
+        // Function to update data-column attributes
+        function updateDataColumnAttributes() {
+            $('.toggle-vis').each(function (index) {
+                $(this).attr('data-column', index);
+            });
+        }
 
         function updateToggleLinkStyles() {
             $('.toggle-vis').each(function () {
                 const columnIdx = $(this).data('column');
-                const column = table.column(columnIdx);
 
-                if (column.visible()) {
-                    $(this).addClass('visible-column');
+                // Check if columnIdx is valid
+                if (typeof columnIdx !== 'undefined' && columnIdx >= 0 && columnIdx < table.columns().count()) {
+                    const column = table.column(columnIdx);
+
+                    if (column.visible()) {
+                        $(this).addClass('visible-column');
+                    } else {
+                        $(this).removeClass('visible-column');
+                    }
                 } else {
-                    $(this).removeClass('visible-column');
+                    console.error('Invalid column index:', columnIdx);
                 }
             });
-
         }
     })
     .catch(error => console.error('Error fetching JSON:', error));
-
-
-$(document).ready(function () {
-
-});
