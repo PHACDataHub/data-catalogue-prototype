@@ -69,20 +69,30 @@ def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
         else:
             return ""
 
-    # Clean hyperlinks and add descriptive text
+    # Allowed domains
+    allowed_domains = [
+        "health-infobase.canada.ca",
+        "www.canada.ca",
+        "www23.statcan.gc.ca",
+        "www150.statcan.gc.ca",
+        "jill.hc-sc.gc.ca"
+    ]
+
+    # Clean hyperlinks and add descriptive text, filtering by allowed domains
     def clean_hyperlinks(link_str, dataset):
         if pd.isnull(link_str):
             return ""
 
         links = []
-        for link in link_str.replace("\n", ",").split(","):  # Still handle newlines
+        for link in link_str.replace("\n", ",").split(","): 
             link = link.strip()
             if "https://" in link.lower():
                 domain = extract_domain(link)
-                desc_text = f"{dataset} dataset on {domain}"
-                links.append(f'<a href="{link}" target="_blank">{desc_text}</a><br>') # Add <br> for line breaks
+                if domain in allowed_domains:  # Filter by allowed domains
+                    desc_text = f"{dataset} dataset on {domain}"
+                    links.append(f'<a href="{link}" target="_blank">{desc_text}</a><br>') 
 
-        return "".join(links)  # Join with empty string (no commas)
+        return "".join(links)
 
     # Filter and rename headers BEFORE applying the function
     df_filtered = df[selected_cols]
@@ -90,6 +100,7 @@ def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
     
     # Apply hyperlink cleaning function with dataset name to the FILTERED data
     df_filtered.loc[:, "Hyperlinks"] = df_filtered.apply(lambda row: clean_hyperlinks(row['Hyperlinks'], row['Dataset']), axis=1)
+
 
 
     # Convert to JSON
@@ -106,7 +117,7 @@ def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
     print(f"Writing extracted CSV data to {extracted_csv}")
 
 # file paths
-csv_filepath = "data-catalogue.csv"
+csv_filepath = "open-data-catalogue.csv"
 extracted_json = "output.json"  
 extracted_csv = "output.csv"  # Path for the CSV file
 extractCatalogue(csv_filepath, extracted_json, extracted_csv) 
