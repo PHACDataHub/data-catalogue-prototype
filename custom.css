@@ -2,7 +2,6 @@
 @import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
 @import url(https://unpkg.com/font-awesome/css/font-awesome.min.css);
 
-
 /* Target the cells within the 'Hyperlinks' column */
 #catalogueTable td a {
   display: inline-block; /* Ensures the element takes up space */
@@ -24,13 +23,19 @@
   aria-hidden: true; /* Tell screen readers to ignore it */
 }
 
-a.toggle-vis:hover {
+.toggle-vis:hover {
     cursor: pointer;
-    text-decoration: underline;
+}
+
+.toggle-vis {
+    padding: .25rem;
 }
 
 .visible-column {
     font-weight: bold;
+    background: var(--gcds-color-blue-900)!important;
+    color: var(--gcds-text-light)!important;
+    text-decoration: none!important;
 }
 
 .toggle-columns {
@@ -39,9 +44,12 @@ a.toggle-vis:hover {
 
 .toggle-columns button {
   display: inline-block;
-  background-color: transparent !important;
+  background-color: transparent;
+  color: var(--gcds-text-primary);
+  text-decoration: underline;
 }
 
+/*
 .toggle-columns button:after {
   content: "-";
   display: inline-block;
@@ -53,7 +61,7 @@ a.toggle-vis:hover {
 
 .toggle-columns button:last-child:after {
   content:""
-}
+}*/
 
 .content-wrapper {
     margin-top: -12px;

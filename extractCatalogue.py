@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
+def extractCatalogue(xlsx_filepath, approved_datasets_filepath, approved_fields_filepath, extracted_json, extracted_csv):
     """
     Pulls the relevant columns from the data catalogue, 
     changes their headers to something better, 
@@ -9,57 +9,23 @@ def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
     which you then must rename to data.json when you're ready to overwrite
     """
     
-    # Read the CSV into a Pandas DataFrame
-    df = pd.read_csv(csv_filepath)
+    # Read the approved datasets list into a DataFrame
+    approved_df = pd.read_csv(approved_datasets_filepath, header=None, names=["ID", "Acronym"])
+    approved_ids = approved_df["ID"].tolist()
     
+    # Read the approved fields list from the CSV file
+    approved_fields_df = pd.read_csv(approved_fields_filepath, header=0)
+    selected_cols = approved_fields_df.iloc[:, 0].tolist()  # Read column A for original column names
+    new_headers = approved_fields_df.iloc[:, 2].tolist()  # Read column C for new headers
+
+    # Read the XLSX into a Pandas DataFrame
+    df = pd.read_excel(xlsx_filepath)
+    
+    # Filter the data to only include approved datasets based on the "ID" column
+    df = df[df["ID"].isin(approved_ids)]
+
     # Ensure that the column exists for all rows
     df["Hyperlinks"] = df["Hyperlinks"].astype(str).fillna("")  # Fill empty cells
-
-    # Columns to extract, these must be the exact name of the column you want to extract from the catalogue
-    selected_cols = [
-        'Database/Dataset/System Name (English)',
-        'Acronym (English)',
-        'Description (English)',
-        'Keywords',
-        'Objective(s) (English)',
-        'Geographical Coverage',
-        'Data Quality Checks or Assessments',
-        'Frequency of Data Collection',
-        'Data sources',
-        'Open government status',
-        'Programming Language',
-        'Years/Cycle Available',
-        'Availability of Indigenous Variables/Data',
-        'Availability of Sex and Gender-based Analysis Plus (SGBA+) Data',
-        'Access Requirement',
-        'Data is Accessible to ',
-        'Intended Audience of Data Knowledge Translation Products and Publications',
-        'When was the Open Government Portal last updated?',
-        'Hyperlinks'
-    ]
-
-    # New, shorter headers
-    new_headers = [
-        'Dataset',
-        'Acronym',
-        'Description',
-        'Keywords',
-        'Objectives',
-        'Coverage',
-        'Quality Checks',
-        'Frequency',
-        'Sources',
-        'Open Status',
-        'Programming Language',
-        'Years Available',
-        'Indigenous Data',
-        'SGBA+ Data',
-        'Access',
-        'Accessible To',
-        'Audience',
-        'Last Updated',
-        'Hyperlinks'
-    ]
 
     # Helper function to extract the domain name from a URL
     def extract_domain(url):
@@ -99,9 +65,8 @@ def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
     df_filtered.columns = new_headers
     
     # Apply hyperlink cleaning function with dataset name to the FILTERED data
-    df_filtered.loc[:, "Hyperlinks"] = df_filtered.apply(lambda row: clean_hyperlinks(row['Hyperlinks'], row['Dataset']), axis=1)
-
-
+    if "Hyperlinks" in df_filtered.columns and "Dataset" in df_filtered.columns:
+        df_filtered.loc[:, "Hyperlinks"] = df_filtered.apply(lambda row: clean_hyperlinks(row['Hyperlinks'], row['Dataset']), axis=1)
 
     # Convert to JSON
     json_data = df_filtered.to_json(orient='records')
@@ -117,7 +82,9 @@ def extractCatalogue(csv_filepath, extracted_json, extracted_csv):
     print(f"Writing extracted CSV data to {extracted_csv}")
 
 # file paths
-csv_filepath = "open-data-catalogue.csv"
-extracted_json = "output.json"  
-extracted_csv = "output.csv"  # Path for the CSV file
-extractCatalogue(csv_filepath, extracted_json, extracted_csv) 
+xlsx_filepath = "data/export-en.xlsx" # English input, extracted from the data catalogue
+approved_datasets_filepath = "approved-datasets.txt" # important! limits extraction to datasets approved for release
+approved_fields_filepath = "approved-fields.csv" # columns to extract and new headers
+extracted_json = "data/output.json"
+extracted_csv = "data/output.csv"
+extractCatalogue(xlsx_filepath, approved_datasets_filepath, approved_fields_filepath, extracted_json, extracted_csv)

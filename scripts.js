@@ -1,5 +1,5 @@
 //get the catalogue data from the JSON file
-const data = fetch('data.json')
+const data = fetch('data/data.json')
     .then(response => response.json())
     .then(data => {
         //console.log(data); // Your JSON data as an array
@@ -8,14 +8,16 @@ const data = fetch('data.json')
         const table = $('#catalogueTable').DataTable({
             data: data,
             scrollX: true,
+            scrollY: '50vh',  // You can adjust the height value as needed
+            scroller: true,
             columns: [
                 { data: "Dataset" },
                 { data: "Acronym" },
                 { data: "Description" },
                 { data: "Keywords" },
-                { data: "Objectives" }, 
-                { data: "Coverage" }, 
-                { data: "Quality Checks" }, 
+                { data: "Objectives" },
+                { data: "Coverage" },
+                { data: "Quality Checks" },
                 { data: "Frequency" },
                 { data: "Sources" },
                 { data: "Open Status" },
@@ -27,13 +29,18 @@ const data = fetch('data.json')
                 { data: "Accessible To" },
                 { data: "Audience" },
                 { data: "Last Updated" },
-                { data: "Hyperlinks" } 
-            ]
+                { data: "Hyperlinks" }
+            ],
+
+            // Add this line to change the search label
+            language: {
+                search: "Search Catalogue",
+            }
         });
-        
+
         // Hide the columns you want to hide initially
         table.columns([4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]).visible(false);
-        
+
 
         // Make table cells focusable AFTER DataTables initialization
         $('#catalogueTable tbody td').attr('tabindex', 0);
@@ -49,24 +56,28 @@ const data = fetch('data.json')
         });
 
         // toggle visibility logic
-        document.querySelectorAll('a.toggle-vis').forEach((el) => {
-            el.addEventListener('click', function (e) {
-                e.preventDefault();
+        document.querySelector('.toggle-columns').addEventListener('click', function (event) {
+            if (event.target.tagName === 'BUTTON') {
+                event.preventDefault(); // Prevent any default button behavior
 
-                let columnIdx = e.target.getAttribute('data-column');
+                let columnIdx = event.target.dataset.column;
                 let column = table.column(columnIdx);
 
                 // Toggle the visibility
                 column.visible(!column.visible());
 
-                // Update data-column attributes after toggle
-                updateDataColumnAttributes();
+                // Update ARIA label based on visibility
+                if (column.visible()) {
+                    event.target.setAttribute('aria-label', `Remove ${event.target.textContent} column from table`);
+                } else {
+                    event.target.setAttribute('aria-label', `Add ${event.target.textContent} column to table`);
+                }
 
                 updateToggleLinkStyles(); // Update styles after toggle
 
                 // Additional Trigger for Search Highlighting
                 table.search(table.search()).draw();
-            });
+            }
         });
 
         // Function to update data-column attributes
@@ -96,3 +107,4 @@ const data = fetch('data.json')
         }
     })
     .catch(error => console.error('Error fetching JSON:', error));
+
