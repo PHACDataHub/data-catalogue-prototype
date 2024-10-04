@@ -1,118 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHAC Data Catalogue Viewer Prototype</title>
+    <title></title> <!-- Title will be set dynamically -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Icons Font Awesome (to access icons, import Font Awesome) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        crossorigin="anonymous">
-
+    <!-- Icons Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" sizes="96x96" href="favicon.ico">
     <link rel="stylesheet" href="custom.css">
 
-
     <!-- GC Design System -->
-    <link rel="stylesheet"
-        href="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.css">
-    <script type="module"
-        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.esm.js"></script>
-    <script nomodule
-        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.js"></script>
+    <link rel="stylesheet" href="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.css">
+    <script type="module" src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.esm.js"></script>
+    <script nomodule src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
-
-    <!-- dataTables stuff -->
-
+    <!-- DataTables -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
-
 </head>
 
 <body>
-    <div
-        style="display:block; width:100%; background-color:#ff5733; text-align:center; font-size:20px; padding:0.5em; font-weight:bold">
-        This is just a prototype, not a real thing</div>
+    <!-- Assign an ID to the prototype notice div -->
+    <div id="prototype-notice" style="display:block; width:100%; background-color:#ff5733; text-align:center; font-size:20px; padding:0.5em; font-weight:bold">
+        <!-- Prototype notice will be set dynamically -->
+    </div>
 
-    <gcds-header lang-href="#" skip-to-href="#">
+    <!-- GC Design System Header -->
+    <gcds-header lang-href="#" skip-to-href="#main-content" lang-code="">
     </gcds-header>
 
-
-
-
-    <div class="content-wrapper">
-
+    <div class="content-wrapper" id="main-content">
         <main id="mc" class="general-layout">
-
             <section>
                 <article class="h1-dark text-light">
-                    <h1 class="mb-400">
-                        Data Catalogue Viewer
+                    <h1 class="mb-400" id="page-title">
+                        <!-- Title will be set dynamically -->
                     </h1>
-                    <p class="mb-400">Explore the Public Health Agency of Canada's Data Catalogue</p>
-                    <a class="link-light" href="#">More information</a>
+                    <p class="mb-400" id="intro-text">
+                        <!-- Intro text will be set dynamically -->
+                    </p>
+                    <a class="link-light more-info-link" href="#">
+                        <!-- Link text will be set dynamically -->
+                    </a>
                 </article>
             </section>
 
             <section>
-
                 <article class="py-450">
-
-
                     <div class="toggle-columns">
-                        Click to add or remove columns:
-                        <button class="toggle-vis visible-column" data-column="0" aria-label="Remove Dataset column from table">Dataset</button>
-                        <button class="toggle-vis visible-column" data-column="1" aria-label="Remove Acronym column from table">Acronym</button>
-                        <button class="toggle-vis visible-column" data-column="2" aria-label="Remove Description column from table">Description</button>
-                        <button class="toggle-vis visible-column" data-column="3" aria-label="Remove Keywords column from table">Keywords</button>
-                        <button class="toggle-vis" data-column="4" aria-label="Add Objectives column to table">Objectives</button>
-                        <button class="toggle-vis" data-column="5" aria-label="Add Coverage column to table">Coverage</button>
-                        <button class="toggle-vis" data-column="6" aria-label="Add Quality Checks column to table">Quality Checks</button>
-                        <button class="toggle-vis" data-column="7" aria-label="Add Frequency column to table">Frequency</button>
-                        <button class="toggle-vis" data-column="8" aria-label="Add Sources column to table">Sources</button>
-                        <button class="toggle-vis" data-column="9" aria-label="Add Open Status column to table">Open Status</button>
-                        <button class="toggle-vis" data-column="10" aria-label="Add Programming Language column to table">Programming Language</button>
-                        <button class="toggle-vis" data-column="11" aria-label="Add Years Available column to table">Years Available</button>
-                        <button class="toggle-vis" data-column="12" aria-label="Add Indigenous Data column to table">Indigenous Data</button>
-                        <button class="toggle-vis" data-column="13" aria-label="Add SGBA+ Data column to table">SGBA+ Data</button>
-                        <button class="toggle-vis" data-column="14" aria-label="Add Access column to table">Access</button>
-                        <button class="toggle-vis" data-column="15" aria-label="Add Accessible To column to table">Accessible To</button>
-                        <button class="toggle-vis" data-column="16" aria-label="Add Audience column to table">Audience</button>
-                        <button class="toggle-vis" data-column="18" aria-label="Add Last Updated column to table">Last Updated</button>
-                        <button class="toggle-vis" data-column="19" aria-label="Add Hyperlinks column to table">Hyperlinks</button>
+                        <span id="toggle-columns-label">
+                            <!-- Label will be set dynamically -->
+                        </span>
+                        <!-- Toggle buttons will be generated dynamically -->
                     </div>
                 </article>
 
                 <article class="py-450">
-                    <!-- this is the HTML for the datables table -->
+                    <!-- DataTables Table -->
                     <table id="catalogueTable" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Dataset</th>
-                                <th>Acronym</th>
-                                <th>Description</th>
-                                <th>Keywords</th>
-                                <th>Objectives</th>
-                                <th>Coverage</th>
-                                <th>Quality Checks</th>
-                                <th>Frequency</th>
-                                <th>Sources</th>
-                                <th>Open Status</th>
-                                <th>Programming Language</th>
-                                <th>Years Available</th>
-                                <th>Indigenous Data</th>
-                                <th>SGBA+ Data</th>
-                                <th>Access</th>
-                                <th>Accessible To</th>
-                                <th>Audience</th>
-                                <th>Last Updated</th>
-                                <th>Hyperlinks</th>
+                                <!-- Column headers will be set dynamically -->
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- Data will be populated dynamically -->
                         </tbody>
                     </table>
                 </article>
@@ -120,19 +76,16 @@
         </main>
     </div>
 
-<script src="scripts.js"></script>
-<script src="search-highlight.js"></script>
+    <!-- JavaScript Files -->
+    <script src="scripts.js"></script>
+    <script src="search-highlight.js"></script>
 
-
-    <!-- Footer Web component code (Angular, Vue) -->
-    <gcds-footer display="full" contextual-heading="Contextual navigation"
-        contextual-links='{ "About the PHAC Data Catalogue": "#" }'>
+    <!-- GC Design System Footer -->
+    <gcds-footer display="full" contextual-heading="" contextual-links="">
     </gcds-footer>
 
-
+    <!-- Bootstrap JS (Optional) -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
-
 </html>

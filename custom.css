@@ -36,6 +36,8 @@
     background: var(--gcds-color-blue-900)!important;
     color: var(--gcds-text-light)!important;
     text-decoration: none!important;
+    padding: .25rem .2rem!important;
+    margin: auto .05rem!important;
 }
 
 .toggle-columns {
