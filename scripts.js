@@ -1,5 +1,5 @@
 //get the catalogue data from the JSON file
-const data = fetch('data/data.json')
+const data = fetch('data/output-en.json')
     .then(response => response.json())
     .then(data => {
         //console.log(data); // Your JSON data as an array
