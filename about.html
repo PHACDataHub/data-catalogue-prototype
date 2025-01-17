@@ -1,25 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn about the Public Health Metadata Viewer</title>
-
+    <title></title> <!-- Title will be set dynamically -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Icons Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" sizes="96x96" href="favicon.ico">
     <link rel="stylesheet" href="custom.css">
 
-    <!-- Icons Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        crossorigin="anonymous">
-
     <!-- GC Design System -->
-    <link rel="stylesheet"
-        href="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@0.26.3/dist/gcds/gcds.css">
-    <script type="module"
-        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@0.26.3/dist/gcds/gcds.esm.js"></script>
-    <script nomodule
-        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@0.26.3/dist/gcds/gcds.js"></script>
+    <link rel="stylesheet" href="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.css">
+    <script type="module" src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.esm.js"></script>
+    <script nomodule src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@latest/dist/gcds/gcds.js"></script>
     <!-- <link rel="stylesheet" href="infobase-theme.css"> -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>    
 </head>
@@ -38,13 +33,14 @@
       <main id="mc" class="general-layout">
           <section>
               <article class="h1-dark text-light">
+                <h2 id="subtitle" class="subtitle">Learn more</h2>
                   <h1 class="mb-400" id="page-title">
                       <!-- Title will be set dynamically -->
                   </h1>
                   <p class="mb-400" id="intro-text">
                       <!-- Intro text will be set dynamically -->
                   </p>
-                  <ul class="small mrgn-bttm-sm list-inline">
+                  <ul id="timestamp-list" class="small mrgn-bttm-sm list-inline">
                     <li class="mrgn-rght-lg">
                       <p class="small" id="last-updated">...</p>
                     </li>
@@ -55,7 +51,7 @@
             <nav>
               <ul class="list-inline hidden-xs hidden-sm mrgn-bttm-0">
                 <li><a class="btn btn-tabs" id="catalogue-tab" role="button" href="/">Catalogue</a></li>
-                <li><a class="btn btn-tabs active" id="about-tab" role="button" href="/about.html">Learn more</a></li>
+                <li><a class="btn btn-tabs active subtitle" id="about-tab" role="button" href="/about.html">Learn more</a></li>
                 <li><a class="btn btn-tabs" id="dictionary-tab" role="button" href="/dictionary.html">Data Dictionary</a></li>
               </ul>
             </nav>
@@ -81,6 +77,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
+    // This script sets the 'last updated' line based on the last push to github
     async function fetchLastUpdated() {
       // Check the language from the URL
       const urlParams = new URLSearchParams(window.location.search);

@@ -1,6 +1,15 @@
 @import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
 @import url(https://unpkg.com/font-awesome/css/font-awesome.min.css);
 
+h2#subtitle {
+    color: #d3d3d3;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+#timestamp-list p {
+    margin-bottom: 0!important;
+}
 #main-content {
     margin-top: -3.75rem !important
 }
@@ -335,7 +344,7 @@ textarea {
     list-style: none
 }*/
 
-nav li {
+.list-disc li {
     margin-left: 2em;
 }
 

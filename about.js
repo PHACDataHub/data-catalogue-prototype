@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Translations for static text
     const translations = {
         en: {
+            subtitle: 'Learn More',
             pageTitle: 'Public Health Data Catalogue',
             introText: "Learn About the Public Health Agency of Canada's Data Catalogue",
             detailedContent: `
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             footerLinkText: "About the PHAC Data Catalogue",
         },
         fr: {
+            subtitle: 'Apprendre encore plus',
             pageTitle: 'Visionneuse du catalogue de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
             detailedContent: `
@@ -61,6 +63,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update static text elements
     document.getElementById('page-title').textContent = translations[language].pageTitle;
+    document.querySelectorAll('.subtitle').forEach(el => {
+        el.textContent = translations[language].subtitle;
+      });
     document.getElementById('intro-text').textContent = translations[language].introText;
     document.getElementById('detailed-content').innerHTML = translations[language].detailedContent;
 
