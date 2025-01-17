@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
             `,
             prototypeNotice: "This is just a prototype, not a real thing",
             footerHeading: "Contextual navigation",
-            footerLinkText: "About the PHAC Data Catalogue",
         },
         fr: {
             subtitle: 'Apprendre encore plus',
@@ -57,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
             `,
             prototypeNotice: "Ceci est juste un prototype, pas une version définitive",
             footerHeading: "Navigation contextuelle",
-            footerLinkText: "À propos du catalogue de données de l'ASPC",
         }
     };
 
@@ -75,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update gcds-footer attributes
     const footer = document.querySelector('gcds-footer');
     footer.setAttribute('contextual-heading', translations[language].footerHeading);
-    footer.setAttribute('contextual-links', `{ "${translations[language].footerLinkText}": "#" }`);
 
     // Update the gcds-header attributes based on the current language
     const header = document.querySelector('gcds-header');
