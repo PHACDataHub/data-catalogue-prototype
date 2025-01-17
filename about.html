@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn about the Public Health Metadata Viewer</title>
+
+    <link rel="icon" type="image/x-icon" sizes="96x96" href="favicon.ico">
+    <link rel="stylesheet" href="custom.css">
+
+    <!-- Icons Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous">
+
+    <!-- GC Design System -->
+    <link rel="stylesheet"
+        href="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@0.26.3/dist/gcds/gcds.css">
+    <script type="module"
+        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@0.26.3/dist/gcds/gcds.esm.js"></script>
+    <script nomodule
+        src="https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@0.26.3/dist/gcds/gcds.js"></script>
+    <!-- <link rel="stylesheet" href="infobase-theme.css"> -->
+</head>
+
+<body>
+    <!-- Header -->
+    <gcds-header>
+        <span slot="header-title">My GC Design System Page</span>
+        <span slot="header-logo">
+            <img src="https://design-system.alpha.canada.ca/img/canada-logo.png" alt="Canada Logo">
+        </span>
+    </gcds-header>
+
+    <section class="blue-header well well-sm brdr-0 mrgn-bttm-0 mrgn-tp-0">
+        <div class="container mrgn-tp-sm">
+          <h1 class="mrgn-tp-md" property="name" id="wb-cont" dir="ltr">
+            <span class="stacked">
+              <span>Learn about the data</span>
+            </span>
+          </h1>
+          <ul class="list-inline small mrgn-bttm-sm" style="line-height:1.65em" id="list-inline-desktop-only">
+            <li class="mrgn-rght-lg"> Last updated: 2023-01-01</li>
+            <li>
+              <a class="pdf" href="#">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                <span class="wb-invisible">Download page in  </span>PDF <span class="wb-invisible"></span>
+              </a>
+            </li>
+            <li>
+              <a class="pdf" href="#">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                <span class="wb-invisible">Download data in  </span>CSV <span class="wb-invisible"></span>
+              </a>
+            </li>
+          </ul>
+          <p>Short introduction to the data product (optional). 1 or 2 sentences explaining the product.</p>
+        </div>
+      </section>
+      <section class="well well-sm brdr-0 mrgn-bttm-25 mrgn-tp-0 tabNav" style="padding:0px;">
+        <div class="container">
+          <nav>
+            <ul class="list-inline hidden-xs hidden-sm mrgn-bttm-0">
+              <li>
+                <a class="active btn btn-tabs" id="active-tab" role="button" href="#">Page 1</a>
+              </li>
+              <li>
+                <a class="btn btn-tabs" id="tab" role="button" href="./template_tabs_2_EN">Page 2</a>
+              </li>
+              <li>
+                <a class="btn btn-tabs" id="tab" role="button" href="./template_tabs_3_EN">Page 3</a>
+              </li>
+              <li>
+                  <a class="btn btn-tabs" id="tab" role="button" href="./template_tabs_4_EN">Page 4</a>
+              </li>
+              <li>
+                <a class="btn btn-tabs" id="tab" role="button" href="./template_tabs_5_EN">Page 5</a>
+              </li>
+            </ul>
+            <ul class="list-unstyled hidden-md hidden-lg">
+              <li>
+                <a class="active btn btn-tabs-mobile" style="padding:10px 0px;" id="active-tab" role="button" href="#">Page 1</a>
+              </li>
+              <li>
+                <a class="btn btn-tabs-mobile" id="tab" role="button" href="./template_tabs_2_EN">Page 2</a>
+              </li>
+              <li>
+                <a class="btn btn-tabs-mobile" id="tab" role="button" href="./template_tabs_3_EN">Page 3</a>
+              </li>
+              <li>
+                <a class="btn btn-tabs-mobile" id="tab" role="button" href="./template_tabs_4_EN">Page 4</a>
+              </li>
+              <li>
+                <a class="btn btn-tabs-mobile" id="tab" role="button" href="./template_tabs_5_EN">Page 5</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </section>
+      
+
+    <!-- Main Content -->
+    <main>
+        <gcds-container>
+            <gcds-heading tag="h1" level="1">Welcome to My Website</gcds-heading>
+            <gcds-paragraph>This is a sample page built using the GC Design System. Add content here using the system's
+                components and styles.</gcds-paragraph>
+
+            <gcds-button type="primary" label="Learn More" onclick="alert('You clicked Learn More!')"></gcds-button>
+        </gcds-container>
+    </main>
+
+    <!-- Footer -->
+    <gcds-footer display="full" contextual-heading="Public Health Metadata Viewer"
+        contextual-links='{ "About the Viewer": "#", "Data Dictionary": "#"}'>
+    </gcds-footer>
+</body>
+
+</html>

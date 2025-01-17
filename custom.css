@@ -1,26 +1,92 @@
-
 @import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
 @import url(https://unpkg.com/font-awesome/css/font-awesome.min.css);
 
+.dt-scroll-body {
+    overflow-y: hidden !important;
+}
+
+.dt-scroll:has(> .scrolled-left) {
+    box-shadow: inset -10px -20px 10px rgba(0, 0, 0, .08);   
+}
+
+.dt-scroll:has(> .scrolled-right) {
+    box-shadow: inset 10px -20px 10px rgba(0, 0, 0, .08);   
+}
+
+.dt-scroll:has(> .scrolled-left).dt-scroll:has(> .scrolled-right) {
+    box-shadow: inset 0px -20px 20px rgba(0, 0, 0, .2);
+}
+
+[data-dt-column="2"], [data-dt-column="4"] {
+    min-width: 32ch;
+}
+
+/* .scrolled-left {
+    box-shadow: inset -10px -5px 10px rgba(0, 0, 0, 1);
+}
+.scrolled-right {
+    box-shadow: inset 10px -5px 10px rgba(0, 0, 0, 1);
+}
+
+.scrolled-right.scrolled-left {
+    box-shadow: inset 0px -5px 20px rgba(0, 0, 0, 1);
+}
+ */
+/* .scrolled-left::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 10px;
+    pointer-events: none;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.1), transparent);
+    top: 0;
+} */
+
+/* .dt-scroll-body::after {
+    content: '';
+    float:left;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 10px;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
+    background: red;
+    top: 0;
+}
+ */
+.spacer {
+    display: block;
+    width: 1px;
+    visibility: hidden;
+}
+
 /* Target the cells within the 'Hyperlinks' column */
 #catalogueTable td a {
-  display: inline-block; /* Ensures the element takes up space */
-  max-width: 18vw;     /* Adjust this to your desired maximum width */
-  overflow: hidden;
-  text-overflow: ellipsis; /* Adds "..." if the URL is truncated */
-  white-space: nowrap;    /* Prevents the URL from wrapping to the next line */
-  color: var(--gcds-link-default);
+    display: inline-block;
+    /* Ensures the element takes up space */
+    max-width: 18vw;
+    /* Adjust this to your desired maximum width */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Adds "..." if the URL is truncated */
+    white-space: nowrap;
+    /* Prevents the URL from wrapping to the next line */
+    color: var(--gcds-link-default);
 }
 
 /* Optional: Style for the shortened URL */
 #catalogueTable td a::before {
-  content: "\f0c1"; /* This is for the chain icon in FA 6+ */
-  font-family: "Font Awesome 6 Free", FontAwesome; 
-  color: var(--gcds-link-default);
-  display:inline-block;
-  user-select: none;
-  padding-right: 0.5ch;
-  aria-hidden: true; /* Tell screen readers to ignore it */
+    content: "\f0c1";
+    /* This is for the chain icon in FA 6+ */
+    font-family: "Font Awesome 6 Free", FontAwesome;
+    color: var(--gcds-link-default);
+    display: inline-block;
+    user-select: none;
+    padding-right: 0.5ch;
+    aria-hidden: true;
+    /* Tell screen readers to ignore it */
 }
 
 .toggle-vis:hover {
@@ -28,16 +94,14 @@
 }
 
 .toggle-vis {
-    padding: .25rem;
+    padding: 5px;
+    margin: auto 2px !important;
 }
 
 .visible-column {
-    font-weight: bold;
-    background: var(--gcds-color-blue-900)!important;
-    color: var(--gcds-text-light)!important;
-    text-decoration: none!important;
-    padding: .25rem .2rem!important;
-    margin: auto .05rem!important;
+    background: var(--gcds-color-blue-900) !important;
+    color: var(--gcds-text-light) !important;
+    text-decoration: none !important;
 }
 
 .toggle-columns {
@@ -45,10 +109,10 @@
 }
 
 .toggle-columns button {
-  display: inline-block;
-  background-color: transparent;
-  color: var(--gcds-text-primary);
-  text-decoration: underline;
+    display: inline-block;
+    background-color: transparent;
+    color: var(--gcds-text-primary);
+    text-decoration: underline;
 }
 
 /*
@@ -78,21 +142,22 @@ article {
 }
 
 .mb-400 {
-    -webkit-margin-after:var(--gcds-spacing-400);
-    margin-block-end:var(--gcds-spacing-400)
-  }
+    -webkit-margin-after: var(--gcds-spacing-400);
+    margin-block-end: var(--gcds-spacing-400)
+}
 
 
 .h1-dark {
     background-color: var(--gcds-color-blue-900)
 }
 
-.text-light, .text-light a {
+.text-light,
+.text-light a {
     color: var(--gcds-text-light)
 }
 
 .text-light a {
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 h1 {
@@ -289,13 +354,126 @@ strong {
 }
 
 .highlight {
-  background-color: rgba(211, 8, 12, 0.5);
+    background-color: rgba(211, 8, 12, 0.5);
 }
 
 select[name="catalogueTable_length"] {
-  margin-right: .5ch;
+    margin-right: .5ch;
 }
 
 :root {
-  --gcds-font-families-icons:"Font Awesome 6 Free",FontAwesome;
+    --gcds-font-families-icons: "Font Awesome 6 Free", FontAwesome;
 }
+
+.tabNav a:visited {
+color: #2b4380;
+}
+.tabNav a:visited:hover {
+color: #fff;
+}
+
+.btn-tabs {
+background-color: #F5F5F5;
+color: #2b4380;
+font-size: 20px;
+font-weight: bold;
+border-radius: 0px;
+}
+        
+.btn-tabs:hover {
+background-color:#26374A;
+color: #FFF;
+}
+ 
+.btn-tabs.active {
+background-color: #26374A;
+color: #FFF;
+font-size: 20px;
+font-weight: bold;
+box-shadow: none;
+border-radius: 0px;
+}
+        
+  
+.btn-tabs-mobile {
+background-color: #F5F5F5;
+color: #2b4380;
+font-size: 20px;
+font-weight: bold;
+border-radius: 0px;
+padding:10px 0px
+}
+        
+  
+.btn-tabs-mobile.active {
+background-color: #F5F5F5;
+color: #26374A;
+font-size: 20px;
+font-weight: bold;
+box-shadow: none;
+border-radius: 0px;
+border-bottom: 5px solid #26374A;
+}
+    
+.btn-tabs, .btn-tabs:visited {
+display: inline-block;
+text-decoration: none;
+}
+
+/* Infobase tabbed interface */
+
+.tabNav a:visited {
+    color: #2b4380;
+    }
+    .tabNav a:visited:hover {
+    color: #fff;
+    }
+    
+    .btn-tabs {
+    background-color: #F5F5F5;
+    color: #2b4380;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 0px;
+    }
+            
+    .btn-tabs:hover {
+    background-color:#26374A;
+    color: #FFF;
+    }
+     
+    .btn-tabs.active {
+    background-color: #26374A;
+    color: #FFF;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: none;
+    border-radius: 0px;
+    }
+            
+      
+    .btn-tabs-mobile {
+    background-color: #F5F5F5;
+    color: #2b4380;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 0px;
+    padding:10px 0px
+    }
+            
+      
+    .btn-tabs-mobile.active {
+    background-color: #F5F5F5;
+    color: #26374A;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: none;
+    border-radius: 0px;
+    border-bottom: 5px solid #26374A;
+    }
+        
+    .btn-tabs, .btn-tabs:visited {
+    display: inline-block;
+    text-decoration: none;
+    }
+    
