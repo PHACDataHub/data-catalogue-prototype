@@ -1,6 +1,14 @@
 @import url(https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap);
 @import url(https://unpkg.com/font-awesome/css/font-awesome.min.css);
 
+
+article.gcds-breadcrumbs {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 h2#subtitle {
     color: #d3d3d3;
     margin: 0;
