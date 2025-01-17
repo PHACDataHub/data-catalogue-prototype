@@ -26,9 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Translations for static text
     const translations = {
         en: {
-            pageTitle: 'Data Catalogue Viewer',
+            pageTitle: 'Public Health Data Catalogue',
             introText: "Explore the Public Health Agency of Canada's Data Catalogue",
-            moreInfo: "More information",
             toggleColumns: "Click to add or remove columns:",
             search: "Search Catalogue",
             prototypeNotice: "This is just a prototype, not a real thing",
@@ -45,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
         fr: {
             pageTitle: 'Visionneuse du catalogue de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
-            moreInfo: "Plus d'informations",
             toggleColumns: "Cliquez pour ajouter ou supprimer des colonnes :",
             search: "Rechercher dans le catalogue",
             prototypeNotice: "Ceci est juste un prototype, pas une version définitive",
@@ -64,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update static text elements
     document.getElementById('page-title').textContent = translations[language].pageTitle;
     document.getElementById('intro-text').textContent = translations[language].introText;
-    document.querySelector('.more-info-link').textContent = translations[language].moreInfo;
     document.getElementById('toggle-columns-label').textContent = translations[language].toggleColumns;
 
     // Update prototype notice using the new ID
