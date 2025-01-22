@@ -117,7 +117,7 @@ def extractCatalogue(xlsx_filepath, approved_datasets_filepath, approved_fields_
 
 # English version
 xlsx_filepath_en = "data/export-en.xlsx"  # English input, extracted from the data catalogue
-extracted_json_en = "data/output-en.json"
+extracted_json_en = "data/output-en.json" 
 extracted_csv_en = "data/output-en.csv"
 approved_datasets_filepath = "approved-datasets.txt"  # Important! Limits extraction to datasets approved for release
 approved_fields_filepath = "approved-fields.csv"  # Columns to extract and new headers
