@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
             relatedLinks: `
             <h3 class="mt-600 mb-300">Related Links</h3>
             <ul class="list-disc mb-300">
-                <li><p class="mb-300"><a href="https://www.canada.ca/fr/sante-publique/services/donnee/collecte.html">Collecte de données</a></p></li>
-                <li><p class="mb-300"><a href="https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32603">Politique sur le service et le numérique</a></p></li>
-                <li><p class="mb-300"><a href="https://ouvert.canada.ca/fr">Gouvernement ouvert</a></p></li>
+                <li><p class="mb-300"><a href="https://www.canada.ca/en/public-health/services/data/gathering.html"> Gathering Data</a></p></li>
+                <li><p class="mb-300"><a href="https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32603">Policy on Service and Digital</a></p></li>
+                <li><p class="mb-300"><a href="https://open.canada.ca/en">Open Government</a></p></li>
             </ul>
 
             `
