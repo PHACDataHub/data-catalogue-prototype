@@ -1,73 +1,36 @@
 # What the project does
-
-Takes data from the PHAC Data Catalogue and presents them as a dynamic table for the public to explore.
+Takes extracted data from the PHAC Data Catalogue and presents them as a dynamic table for the public to explore.
 
 # Why the project is useful
-
-Gives the public a way to explore and understand all the data holdings at PHAC
+Gives the public a way to explore and understand all the data holdings at PHAC.
 
 # How it works
+A python script runs locally and extracts the relevant data from the exports from the internal PHAC Data Catalogue. This gets pushed to GitHub. The web page, hosted by GitHub Pages, then presents this data using the [datatables library](https://datatables.net/).
 
-1. Put a copy of the data catalogue as a CSV in the root folder, saved as "data-catalogue.csv"
-2. run extractCatalogue.py using Python, which will create output.json
-3. rename the output.json to data.json when you're ready to overwrite the previous data.
-
-## extractCatalogue.py
-
-This python script reads data-catalogue.csv and extracts the following columns of data (exact names of the headers in the catalogue):
-
-- Database/Dataset/System Name (English)
-- Acronym (English)
-- Description (English)
-- Keywords
-- Objective(s) (English)
-- Geographical Coverage
-- Data Quality Checks or Assessments
-- Frequency of Data Collection
-- Data sources
-- Open government status
-- Programming Language
-- Years/Cycle Available
-- Availability of Indigenous Variables/Data
-- Availability of Sex and Gender-based Analysis Plus (SGBA+) Data
-- Access Requirement
-- Data is Accessible to
-- Intended Audience of Data Knowledge Translation Products and Publications
-- When was the Open Government Portal last updated?
-- Hyperlinks
-
-The headers are then changed to plain language:
-
-- Dataset
-- Acronym
-- Description
-- Keywords
-- Objectives
-- Coverage
-- Quality Checks
-- Frequency
-- Sources
-- Open Status
-- Programming Language
-- Years Available
-- Indigenous Data
-- SGBA+ Data
-- Access
-- Accessible To
-- Audience
-- Category
-- Last Updated
-- Hyperlinks
-
-The script excludes hyperlinks that don't have "http", which should exclude any internal links.
-
-The script then converts these data to a JSON file and exports it to output.json.
-
-## display the data with datatables
-
-When you're ready to update the data catalogue viewer, you can rename output.json to data.json, overwriting the previous catalogue.
-And that's all you need to do. Whenever someone goes to index.html in their browser it will use DataTables to build a dynamic and searchable table of the data catalogue.
 
 # Who maintains and contributes to the project
 
-This project is run by the Data Transparency team at PHAC
+This project is run by the Data Transparency team at PHAC. The data are pulled from the internal PHAC Data Catalogue, which is maintained by the DAAM team at DMIA.
+
+# Updating the PHAC Data Catalogue (aka the public metadata viewer)
+
+### download the data catalogue extracts
+- go to the internal [Data Catalogue](https://jill.hc-sc.gc.ca/confluence/display/DCAP/Data+Catalogue)
+- download the english export, rename it `export-en.xlsx`
+- download the french export, rename it `export-fr.xlsx`
+- put both files in the `put data catalogue extracts here` folder
+### extract and update the data
+Note that this will overwrite the current output data files, however the older one's will still be available if you checkout older commits of the github repository.
+- run `python scripts/extractCatalogue.py` in the root folder.
+- this will pull the relevant 
+- caution: ensure that the full data catalogue extract files aren't accidentally pushed to the github repo. this shouldn't be an issue so long as they are only placed in the `put data catalogue extracts here` folder, as it is added to the `.gitignore` file. If they somehow get pushed, make sure to remove that commit asap as possible
+- Push to github
+
+# Updating the data dictionary
+The data dictionary file is located at `data/dictionary.csv`. This is the file you will update to update the data dictionary. Ensure that it is saved as a csv with UTF-8 encoding. Make sure to maintain the current csv structure, as this file serves several important functions:
+	- it lists the approved fields that will be extracted by extractCatalogue.py
+	- it marks which fields will be displayed by default when users load the data catalogue
+	- it is the data dictionary that is displayed on the data dictionary page
+
+# Updating the web pages
+The French/English text content for each page is loaded dynamically from a javascript file. So to udpate the content.
