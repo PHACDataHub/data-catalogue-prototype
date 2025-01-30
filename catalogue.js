@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
         en: {
             pageTitle: 'Public Health Data Catalogue',
             introText: "Explore the Public Health Agency of Canada's Data Catalogue",
+            detailedContent: `
+            <p class="mb-300">This page lets you explore information about what data the Public Health Agency of Canada (PHAC) uses to protect and promote the health of people in Canada. We built this page to let you see what data we use.</p>
+            <p class="mb-300">This page includes datasets that are of public interest. It includes a variety of datasets covering topics like public health trends, disease tracking, and population health statistics . Not all datasets are permitted to be shared publicly due to things like privacy concerns or data sharing agreements.</p>
+            <p class="mb-300">On this page you can explore details about our datasets to better understand what information we use to make public health decisions. By providing this tool, we aim to support open information principles outlined in the Policy on Service and Digital, ensuring that our datasets are easily accessible and understandable to everyone.</p>
+            `,
             toggleColumns: "Click to add or remove columns:",
             search: "Search Catalogue",
             prototypeNotice: "This is just a prototype, not a real thing",
@@ -38,11 +43,25 @@ document.addEventListener('DOMContentLoaded', function () {
             previous: "Previous",
             show: "Show",
             hide: "Hide",
-            column: "column"
+            column: "column",
+            relatedLinks: `
+            <h3 class="mt-600 mb-300">Related Links</h3>
+            <ul class="list-disc mb-300">
+                <li><p class="mb-300"><a href="https://www.canada.ca/fr/sante-publique/services/donnee/collecte.html">Collecte de données</a></p></li>
+                <li><p class="mb-300"><a href="https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32603">Politique sur le service et le numérique</a></p></li>
+                <li><p class="mb-300"><a href="https://ouvert.canada.ca/fr">Gouvernement ouvert</a></p></li>
+            </ul>
+
+            `
         },
         fr: {
             pageTitle: 'Visionneuse du catalogue de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
+            detailedContent: `
+            <p class="mb-300">Cette page vous permet d'explorer des informations sur les données utilisées par l'Agence de la santé publique du Canada (ASPC) pour protéger et promouvoir la santé des personnes au Canada. Nous avons créé cette page pour vous montrer les données que nous utilisons.</p>
+            <p class="mb-300">Cette page comprend des ensembles de données d'intérêt public. Elle contient une variété de données couvrant des sujets tels que les tendances en santé publique, le suivi des maladies et les statistiques de santé de la population. Tous les ensembles de données ne peuvent pas être partagés publiquement en raison de préoccupations liées à la confidentialité ou à des accords de partage de données.</p>
+            <p class="mb-300">Sur cette page, vous pouvez explorer les détails de nos ensembles de données pour mieux comprendre les informations que nous utilisons pour prendre des décisions en matière de santé publique. En fournissant cet outil, nous visons à soutenir les principes d'ouverture de l'information définis dans la Politique sur le service et le numérique, en veillant à ce que nos ensembles de données soient facilement accessibles et compréhensibles par tous.</p>
+            `,
             toggleColumns: "Cliquez pour ajouter ou supprimer des colonnes :",
             search: "Rechercher dans le catalogue",
             prototypeNotice: "Ceci est juste un prototype, pas une version définitive",
@@ -53,14 +72,25 @@ document.addEventListener('DOMContentLoaded', function () {
             previous: "Précédent",
             show: "Afficher",
             hide: "Masquer",
-            column: "colonne"
+            column: "colonne",
+            relatedLinks: `
+            <h3 class="mt-600 mb-300">Liens connexes</h3>
+            <ul class="list-disc mb-300">
+                <li><p class="mb-300"><a href="https://www.canada.ca/fr/sante-publique/services/donnee/collecte.html">Collecte de données</a></p></li>
+                <li><p class="mb-300"><a href="https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32603">Politique sur le service et le numérique</a></p></li>
+                <li><p class="mb-300"><a href="https://ouvert.canada.ca/fr">Gouvernement ouvert</a></p></li>
+            </ul>
+
+            `
         }
     };
 
     // Update static text elements
     document.getElementById('page-title').textContent = translations[language].pageTitle;
     document.getElementById('intro-text').textContent = translations[language].introText;
+    document.getElementById('detailed-content').innerHTML = translations[language].detailedContent;
     document.getElementById('toggle-columns-label').textContent = translations[language].toggleColumns;
+    document.getElementById('related-links').innerHTML = translations[language].relatedLinks;
 
     // Update prototype notice using the new ID
     document.getElementById('prototype-notice').textContent = translations[language].prototypeNotice;
@@ -139,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             // Initially hide certain columns (adjust indices as needed)
-            const columnsToHide = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+            const columnsToHide = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
             table.columns(columnsToHide).visible(false);
 
             // Update toggle buttons to match initial column visibility
