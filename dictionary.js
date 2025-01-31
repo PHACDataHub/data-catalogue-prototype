@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
             subtitle: 'Data Dictionary',
             pageTitle: 'Public Health Data Catalogue',
             introText: "Learn About the Public Health Agency of Canada's Data Catalogue",
+            breadcrumbsHTML: `
+            <gcds-breadcrumbs>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/en/services/health.html">Health</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/en/services/health/science-research-data.html">Health science, research and data</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://health-infobase.canada.ca/">Health Infobase</gcds-breadcrumbs-item>
+            </gcds-breadcrumbs>
+            `,
             detailedContent: `
             <p class="mb-300">This page lets you explore information about what data the Public Health Agency of Canada (PHAC) uses to protect and promote the health of people in Canada. We built this page to let you see what data we use.</p>
             `,
@@ -35,6 +42,13 @@ document.addEventListener('DOMContentLoaded', function () {
             subtitle: 'Dictionnaire de données',
             pageTitle: 'Visionneuse du catalogue de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
+            breadcrumbsHTML: `
+            <gcds-breadcrumbs>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/fr/services/sante.html">Santé</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/fr/services/sante/science-recherche-et-donnees.html">Sciences de la santé, recherche et données</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://sante-infobase.canada.ca/">Infobase Santé</gcds-breadcrumbs-item>
+            </gcds-breadcrumbs>
+            `,
             detailedContent: `
             <p class="mb-300">Cette page vous permet d'explorer des informations sur les données utilisées par l'Agence de la santé publique du Canada (ASPC) pour protéger et promouvoir la santé des personnes au Canada. Nous avons créé cette page pour vous montrer les données que nous utilisons.</p>
             `,
@@ -49,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         el.textContent = translations[language].subtitle;
       });
     document.getElementById('intro-text').textContent = translations[language].introText;
+    document.getElementById('breadcrumbs').innerHTML = translations[language].breadcrumbsHTML;
     document.getElementById('detailed-content').innerHTML = translations[language].detailedContent;
 
     // Update prototype notice using the new ID
