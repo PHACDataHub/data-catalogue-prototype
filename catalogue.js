@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         en: {
             pageTitle: 'Public Health Data Catalogue',
             introText: "Explore the Public Health Agency of Canada's Data Catalogue",
+            lastUpdatedLabel: 'Last updated',
             breadcrumbsHTML: `
             <gcds-breadcrumbs>
                 <gcds-breadcrumbs-item href="https://www.canada.ca/en/services/health.html">Health</gcds-breadcrumbs-item>
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fr: {
             pageTitle: 'Visionneuse du catalogue de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
+            lastUpdatedLabel: 'Dernière mise à jour',
             breadcrumbsHTML: `
             <gcds-breadcrumbs>
                 <gcds-breadcrumbs-item href="https://www.canada.ca/fr/services/sante.html">Santé</gcds-breadcrumbs-item>
@@ -117,6 +119,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update gcds-footer attributes
     const footer = document.querySelector('gcds-footer');
     footer.setAttribute('contextual-heading', translations[language].footerHeading);
+
+    // Fetch and update the last updated date from GitHub
+    async function fetchLastUpdated() {
+        try {
+            const response = await fetch('https://api.github.com/repos/PHACDataHub/data-catalogue-prototype/commits/main');
+            const data = await response.json();
+
+            if (data.commit && data.commit.committer && data.commit.committer.date) {
+                const lastUpdated = new Date(data.commit.committer.date).toISOString().split('T')[0];
+                const label = translations[language].lastUpdatedLabel;
+                document.getElementById('last-updated').textContent = `${label}: ${lastUpdated}`;
+            } else {
+                console.error('Invalid response format for GitHub API:', data);
+            }
+        } catch (error) {
+            console.error('Error fetching last updated date:', error);
+        }
+    }
+
+    fetchLastUpdated();
 
     // Update the gcds-header attributes based on the current language
     const header = document.querySelector('gcds-header');
