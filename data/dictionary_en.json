@@ -1,0 +1,18 @@
+{
+    "Dataset": "The official English name of the database, dataset, or system.",
+    "Acronym": "The commonly used English acronym for the database, dataset, or system.",
+    "Description": "A detailed description of the content, purpose, and scope of the database, dataset, or system.",
+    "Keywords": "Relevant keywords that help in searching and categorizing the dataset.",
+    "Objectives": "The main goals or purposes for collecting and using the dataset.",
+    "Coverage": "The geographic area or regions covered by the dataset.",
+    "Quality checks": "Information about data quality checks, validations, or assessments performed on the dataset.",
+    "Frequency": "How often the data is collected or updated.",
+    "Sources": "The original sources from which the data is obtained.",
+    "Open status": "Indicates whether the dataset is available under Open Government policies.",
+    "Programming language": "The programming languages used in processing or analyzing the dataset.",
+    "Years available": "The years or cycles for which the dataset is available.",
+    "Access": "The requirements needed to access the dataset.",
+    "Accessible to": "The groups or individuals who have access to the dataset.",
+    "Audience": "The target audience for products and publications derived from the dataset.",
+    "Last updated": "The date when the dataset was last updated on the Open Government Portal."
+}

@@ -28,6 +28,15 @@ document.addEventListener('DOMContentLoaded', function () {
         en: {
             pageTitle: 'Public Health Data Catalogue',
             introText: "Explore the Public Health Agency of Canada's Data Catalogue",
+            breadcrumbsHTML: `
+            <gcds-breadcrumbs>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/en/services/health.html">Health</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/en/services/health/science-research-data.html">Health science, research and data</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://health-infobase.canada.ca/">Health Infobase</gcds-breadcrumbs-item>
+            </gcds-breadcrumbs>
+            `,
+            catalogueName: "Catalogue",
+            dictionaryName: "Data Dictionary",
             detailedContent: `
             <p class="mb-300">This page lets you explore information about what data the Public Health Agency of Canada (PHAC) uses to protect and promote the health of people in Canada. We built this page to let you see what data we use.</p>
             <p class="mb-300">This page includes datasets that are of public interest. It includes a variety of datasets covering topics like public health trends, disease tracking, and population health statistics . Not all datasets are permitted to be shared publicly due to things like privacy concerns or data sharing agreements.</p>
@@ -57,6 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
         fr: {
             pageTitle: 'Visionneuse du catalogue de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
+            breadcrumbsHTML: `
+            <gcds-breadcrumbs>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/fr/services/sante.html">Santé</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://www.canada.ca/fr/services/sante/science-recherche-et-donnees.html">Sciences de la santé, recherche et données</gcds-breadcrumbs-item>
+                <gcds-breadcrumbs-item href="https://sante-infobase.canada.ca/">Infobase Santé</gcds-breadcrumbs-item>
+            </gcds-breadcrumbs>
+            `,
+            catalogueName: "Catalogue",
+            dictionaryName: "Dictionnaire des données",
             detailedContent: `
             <p class="mb-300">Cette page vous permet d'explorer des informations sur les données utilisées par l'Agence de la santé publique du Canada (ASPC) pour protéger et promouvoir la santé des personnes au Canada. Nous avons créé cette page pour vous montrer les données que nous utilisons.</p>
             <p class="mb-300">Cette page comprend des ensembles de données d'intérêt public. Elle contient une variété de données couvrant des sujets tels que les tendances en santé publique, le suivi des maladies et les statistiques de santé de la population. Tous les ensembles de données ne peuvent pas être partagés publiquement en raison de préoccupations liées à la confidentialité ou à des accords de partage de données.</p>
@@ -88,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update static text elements
     document.getElementById('page-title').textContent = translations[language].pageTitle;
     document.getElementById('intro-text').textContent = translations[language].introText;
+    document.getElementById('catalogue-text').textContent = translations[language].catalogueName;
+    document.getElementById('dictionary-text').textContent = translations[language].dictionaryName;
+    document.getElementById('breadcrumbs').innerHTML = translations[language].breadcrumbsHTML;
     document.getElementById('detailed-content').innerHTML = translations[language].detailedContent;
     document.getElementById('toggle-columns-label').textContent = translations[language].toggleColumns;
     document.getElementById('related-links').innerHTML = translations[language].relatedLinks;

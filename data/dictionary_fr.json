@@ -1,0 +1,18 @@
+{
+    "Dataset": "Le nom officiel en anglais de la base de données, du jeu de données ou du système.",
+    "Acronyme": "L'acronyme anglais couramment utilisé pour la base de données, le jeu de données ou le système.",
+    "Description": "Une description détaillée du contenu, de l'objectif et de la portée de la base de données, du jeu de données ou du système.",
+    "Mots clés": "Mots-clés pertinents qui aident à la recherche et à la catégorisation du jeu de données.",
+    "Objectifs": "Les principaux objectifs ou finalités de la collecte et de l'utilisation du jeu de données.",
+    "Couverture": "La zone géographique ou les régions couvertes par le jeu de données.",
+    "Vérifications de la qualité": "Informations sur les vérifications de la qualité des données, les validations ou les évaluations effectuées sur le jeu de données.",
+    "Fréquence": "La fréquence à laquelle les données sont collectées ou mises à jour.",
+    "Sources": "Les sources originales à partir desquelles les données sont obtenues.",
+    "Statut ouvert": "Indique si le jeu de données est disponible selon les politiques de gouvernement ouvert.",
+    "Langage de programmation": "Les langages de programmation utilisés pour traiter ou analyser le jeu de données.",
+    "Années disponibles": "Les années ou cycles pour lesquels le jeu de données est disponible.",
+    "Accès": "Les conditions nécessaires pour accéder au jeu de données.",
+    "Accessible à": "Les groupes ou individus qui ont accès au jeu de données.",
+    "Public cible": "Le public cible pour les produits et publications dérivés du jeu de données.",
+    "Dernière mise à jour": "La date de la dernière mise à jour du jeu de données sur le portail du gouvernement ouvert."
+}

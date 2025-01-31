@@ -69,3 +69,36 @@ document.addEventListener('DOMContentLoaded', function () {
         header.setAttribute('lang-href', '?lang=en');
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Determine language from URL or localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    let language = urlParams.get('lang') || localStorage.getItem('language') || navigator.language.split('-')[0];
+    if (!['en', 'fr'].includes(language)) language = 'en';
+    localStorage.setItem('language', language);
+
+    // Set the correct JSON file to load
+    const jsonFile = language === 'fr' ? 'data/dictionary_fr.json' : 'data/dictionary_en.json';
+
+    // Load JSON data and initialize DataTable
+    fetch(jsonFile)
+        .then(response => response.json())
+        .then(data => {
+            const tableData = Object.entries(data).map(([field, description]) => ({ field, description }));
+
+            $('#catalogueTable').DataTable({
+                data: tableData,
+                columns: [
+                    { title: language === 'fr' ? 'Nom du champ' : 'Field Name', data: 'field' },
+                    { title: language === 'fr' ? 'Description' : 'Description', data: 'description' }
+                ],
+                paging: true,
+                searching: true,
+                responsive: true,
+                language: {
+                    url: language === 'fr' ? 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/French.json' : ''
+                }
+            });
+        })
+        .catch(error => console.error('Error loading dictionary JSON:', error));
+});
