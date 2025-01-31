@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('language', language);
     document.documentElement.lang = language;
 
-    // Set page title
-    document.title = language === 'fr' ? 'Prototype de visionneuse de catalogue de données de l\'ASPC' : 'PHAC Data Catalogue Viewer Prototype';
-
     // Translations for static text
     const translations = {
         en: {
@@ -104,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Update static text elements
+    document.title = translations[language].pageTitle;
     document.getElementById('page-title').textContent = translations[language].pageTitle;
     document.getElementById('intro-text').textContent = translations[language].introText;
     document.getElementById('catalogue-text').textContent = translations[language].catalogueName;
@@ -166,7 +164,43 @@ document.addEventListener('DOMContentLoaded', function () {
                         next: translations[language].next,
                         previous: translations[language].previous
                     }
-                }
+                },
+                dom: 
+                    `<"top-toolbar d-flex justify-content-between"
+                        <"left"l> <"right d-flex flex-column align-items-end"Bf>
+                     >tip`,
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Copier' : 'Copy'}`,
+                        titleAttr: language === 'fr' ? 'Copier les données' : 'Copy data',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'csv',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Exporter CSV' : 'Export CSV'}`,
+                        titleAttr: language === 'fr' ? 'Exporter en CSV' : 'Export as CSV',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'excel',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Exporter Excel' : 'Export Excel'}`,
+                        titleAttr: language === 'fr' ? 'Exporter en Excel' : 'Export as Excel',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'pdf',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Exporter PDF' : 'Export PDF'}`,
+                        titleAttr: language === 'fr' ? 'Exporter en PDF' : 'Export as PDF',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'print',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Imprimer' : 'Print'}`,
+                        titleAttr: language === 'fr' ? 'Imprimer les données' : 'Print data',
+                        escapeTitle: false
+                    }
+                ]
             });
 
             // Generate toggle buttons dynamically

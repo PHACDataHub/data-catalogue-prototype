@@ -2,9 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get the 'lang' query parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     let language = urlParams.get('lang') || localStorage.getItem('language') || navigator.language.split('-')[0];
+
+    // sets language by to english if user hasn't selected french or english and their browser isn't set to french or english
     if (!['en', 'fr'].includes(language)) language = 'en';
     localStorage.setItem('language', language);
     document.documentElement.lang = language;
+    
 
     // Select the gcds-header element and update the language switch link
     const header = document.querySelector('gcds-header');
@@ -29,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const translations = {
         en: {
             subtitle: 'Data Dictionary',
-            pageTitle: 'Public Health Data Catalogue',
+            pageTitle: 'Public Health Data Catalogue - Data Dictionary',
             introText: "Learn About the Public Health Agency of Canada's Data Catalogue",
             breadcrumbsHTML: `
             <gcds-breadcrumbs>
@@ -43,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         fr: {
             subtitle: 'Dictionnaire de données',
-            pageTitle: 'Visionneuse du catalogue de données',
+            pageTitle: 'Visionneuse du catalogue de données - Dictionnaire de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
             breadcrumbsHTML: `
             <gcds-breadcrumbs>
@@ -58,6 +61,10 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Update static text elements
+
+    
+    document.title = translations[language].pageTitle;
+
     document.getElementById('page-title').textContent = translations[language].pageTitle;
     document.querySelectorAll('.subtitle').forEach(el => {
         el.textContent = translations[language].subtitle;
@@ -89,7 +96,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 responsive: true,
                 language: {
                     url: language === 'fr' ? 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/French.json' : ''
-                }
+                },
+                dom: 
+                    `<"top-toolbar d-flex justify-content-between"
+                        <"left"l> <"right d-flex flex-column align-items-end"Bf>
+                     >tip`,
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Copier' : 'Copy'}`,
+                        titleAttr: language === 'fr' ? 'Copier les données' : 'Copy data',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'csv',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Exporter CSV' : 'Export CSV'}`,
+                        titleAttr: language === 'fr' ? 'Exporter en CSV' : 'Export as CSV',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'excel',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Exporter Excel' : 'Export Excel'}`,
+                        titleAttr: language === 'fr' ? 'Exporter en Excel' : 'Export as Excel',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'pdf',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Exporter PDF' : 'Export PDF'}`,
+                        titleAttr: language === 'fr' ? 'Exporter en PDF' : 'Export as PDF',
+                        escapeTitle: false
+                    },
+                    {
+                        extend: 'print',
+                        text: `<i class="fa fa-download" aria-hidden="true"></i> ${language === 'fr' ? 'Imprimer' : 'Print'}`,
+                        titleAttr: language === 'fr' ? 'Imprimer les données' : 'Print data',
+                        escapeTitle: false
+                    }
+                ]
             });
         })
         .catch(error => console.error('Error loading dictionary JSON:', error));
