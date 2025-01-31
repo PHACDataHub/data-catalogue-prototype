@@ -1,31 +1,18 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     // Get the 'lang' query parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     let language = urlParams.get('lang') || localStorage.getItem('language') || navigator.language.split('-')[0];
 
-    // sets language by to english if user hasn't selected french or english and their browser isn't set to french or english
+    // Set language to English if it's not explicitly set to French or English
     if (!['en', 'fr'].includes(language)) language = 'en';
     localStorage.setItem('language', language);
     document.documentElement.lang = language;
-    
 
     // Select the gcds-header element and update the language switch link
     const header = document.querySelector('gcds-header');
     if (header) {
-        console.log(`Current page: ${window.location.pathname}`);
-        console.log(`Detected language: ${language}`);
-
-        if (language === 'en') {
-            header.setAttribute('lang-code', 'fr');
-            header.setAttribute('lang-href', `${window.location.pathname}?lang=fr`);
-        } else {
-            header.setAttribute('lang-code', 'en');
-            header.setAttribute('lang-href', `${window.location.pathname}?lang=en`);
-        }
-        
-        console.log(`Set lang-href to: ${header.getAttribute('lang-href')}`);
-    } else {
-        console.error("gcds-header not found!");
+        header.setAttribute('lang-code', language === 'en' ? 'fr' : 'en');
+        header.setAttribute('lang-href', `${window.location.pathname}?lang=${language === 'en' ? 'fr' : 'en'}`);
     }
 
     // Translations for static text
@@ -34,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             subtitle: 'Data Dictionary',
             pageTitle: 'Public Health Data Catalogue - Data Dictionary',
             introText: "Learn About the Public Health Agency of Canada's Data Catalogue",
+            lastUpdatedLabel: 'Last updated',
             breadcrumbsHTML: `
             <gcds-breadcrumbs>
                 <gcds-breadcrumbs-item href="https://www.canada.ca/en/services/health.html">Health</gcds-breadcrumbs-item>
@@ -48,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             subtitle: 'Dictionnaire de données',
             pageTitle: 'Visionneuse du catalogue de données - Dictionnaire de données',
             introText: "Explorez le catalogue de données de l'Agence de la santé publique du Canada",
+            lastUpdatedLabel: 'Dernière mise à jour',
             breadcrumbsHTML: `
             <gcds-breadcrumbs>
                 <gcds-breadcrumbs-item href="https://www.canada.ca/fr/services/sante.html">Santé</gcds-breadcrumbs-item>
@@ -61,10 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Update static text elements
-
-    
     document.title = translations[language].pageTitle;
-
     document.getElementById('page-title').textContent = translations[language].pageTitle;
     document.querySelectorAll('.subtitle').forEach(el => {
         el.textContent = translations[language].subtitle;
@@ -76,6 +62,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update gcds-footer attributes
     const footer = document.querySelector('gcds-footer');
     footer.setAttribute('contextual-heading', translations[language].footerHeading);
+
+    // Fetch and update the last updated date from GitHub
+    async function fetchLastUpdated() {
+        try {
+            const response = await fetch('https://api.github.com/repos/PHACDataHub/data-catalogue-prototype/commits/main');
+            const data = await response.json();
+
+            if (data.commit && data.commit.committer && data.commit.committer.date) {
+                const lastUpdated = new Date(data.commit.committer.date).toISOString().split('T')[0];
+                const label = translations[language].lastUpdatedLabel;
+                document.getElementById('last-updated').textContent = `${label}: ${lastUpdated}`;
+            } else {
+                console.error('Invalid response format for GitHub API:', data);
+            }
+        } catch (error) {
+            console.error('Error fetching last updated date:', error);
+        }
+    }
+
+    fetchLastUpdated();
 
     // Load JSON data and initialize DataTable
     const jsonFile = language === 'fr' ? 'data/dictionary_fr.json' : 'data/dictionary_en.json';
