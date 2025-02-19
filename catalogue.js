@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         previous: translations[language].previous
                     }
                 },
-                dom: 
+                dom:
                     `<"top-toolbar d-flex justify-content-between"
                         <"left"l> <"right d-flex flex-column align-items-end"Bf>
                      >tip`,
@@ -281,49 +281,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
             (function () {
                 var dtScrollBodies = document.querySelectorAll('.dt-scroll-body');
-            
+
                 dtScrollBodies.forEach(function (dtScrollBody) {
                     // Create a spacer element after dtScrollBody
                     var spacer = document.createElement('div');
                     spacer.className = 'spacer';
                     dtScrollBody.parentNode.insertBefore(spacer, dtScrollBody.nextSibling);
-            
+
                     function adjustHeight() {
                         var viewportHeight = window.innerHeight;
                         var dtScrollBodyRect = dtScrollBody.getBoundingClientRect();
                         var dtScrollBodyTop = dtScrollBodyRect.top;
                         var naturalHeight = dtScrollBody.scrollHeight;
-            
+
                         var availableHeight = viewportHeight - dtScrollBodyTop;
-            
+
                         // Ensure we don't set height larger than natural height
                         var adjustedHeight = Math.min(availableHeight, naturalHeight);
-            
+
                         // Set the height of dt-scroll-body
                         dtScrollBody.style.height = adjustedHeight + 'px';
-            
+
                         // Adjust spacer height to compensate for dynamic height change
                         var spacerHeight = naturalHeight - adjustedHeight;
                         spacer.style.height = spacerHeight + 'px';
-            
+
                         // Check if horizontal scrolling is needed
                         checkHorizontalScroll();
                     }
-            
+
                     function checkHorizontalScroll() {
                         var table = dtScrollBody.querySelector('table');
                         if (!table) return;
-            
+
                         var tableRect = table.getBoundingClientRect();
                         var containerRect = dtScrollBody.getBoundingClientRect();
-            
+
                         // Check if table is scrolled to the left (hidden content to the right)
                         if (tableRect.right > containerRect.right) {
                             dtScrollBody.classList.add('scrolled-left');
                         } else {
                             dtScrollBody.classList.remove('scrolled-left');
                         }
-            
+
                         // Check if table is scrolled to the right (hidden content to the left)
                         if (tableRect.left < containerRect.left) {
                             dtScrollBody.classList.add('scrolled-right');
@@ -331,35 +331,38 @@ document.addEventListener('DOMContentLoaded', function () {
                             dtScrollBody.classList.remove('scrolled-right');
                         }
                     }
-            
+
                     // Add scroll event listener to dtScrollBody to detect horizontal scrolling
                     dtScrollBody.addEventListener('scroll', function () {
                         checkHorizontalScroll();
                     });
-            
+
                     // Throttle the function to improve performance
                     var resizeTimer;
                     function onResizeOrScroll() {
                         clearTimeout(resizeTimer);
                         resizeTimer = setTimeout(adjustHeight, 1);
                     }
-            
+
                     window.addEventListener('resize', onResizeOrScroll);
                     window.addEventListener('scroll', onResizeOrScroll);
                     window.addEventListener('click', onResizeOrScroll);
-            
+
                     // Initial adjustment
                     adjustHeight();
-            
+
                     // Initial check for scroll position
                     checkHorizontalScroll();
                 });
             })();
-            
-            
+
+            // Reapply search highlight on table draw
+            table.on('draw', function () {
+                $('#catalogueTable tbody').unhighlight();
+                $('#catalogueTable tbody').highlight(table.search(), { wordsOnly: false });
+            });
+
 
         })
         .catch(error => console.error('Error:', error));
 });
-
-
